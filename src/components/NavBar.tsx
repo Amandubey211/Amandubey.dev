@@ -13,7 +13,7 @@ const links = [
   { label: "About", path: "/about" },
   { label: "Projects", path: "/projects" },
   { label: "Contact", path: "/contact" },
-  { label: "Blog", path: "/blog" },
+  //   { label: "Blog", path: "/blog" },
 ] as const;
 
 export function NavBar() {
