@@ -30,7 +30,7 @@ export function AboutSection() {
         I&apos;m Aman Dubey, an MCA-trained full-stack dev who crafts
         lightning-fast React and MERN products. I obsess over clean
         architecture, micro-animations and Core Web Vitals—often slicing load
-        times by 50 percent while keeping accessibility at 100 percent.
+        times by 60 percent while keeping accessibility at 100 percent.
       </ScrollReveal>
     </section>
   );
