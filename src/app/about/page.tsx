@@ -1,14 +1,9 @@
+import AboutHero from "./AboutHero";
+
 export default function AboutPage() {
   return (
-    <main className="p-10">
-      <h1 className="text-3xl font-bold">About</h1>
-      <p className="mt-2 text-gray-600">
-        This is the about page, rendered statically via App Router.
-      </p>
+    <main className="relative max-w-7xl mx-auto px-6 md:px-12 pt-28 pb-32">
+      <AboutHero />
     </main>
   );
 }
-export const metadata = {
-  title: "About | My Next.js Journey",
-  description: "Learn more about this project",
-};

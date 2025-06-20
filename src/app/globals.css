@@ -43,3 +43,12 @@ html {
 #nprogress .peg {
   box-shadow: 0 0 8px #a3ff4e, 0 0 5px #a3ff4e;
 }
+/* tailwind layer or plain file */
+svg text {
+  font-family: var(--font-geist-sans, Inter, sans-serif);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  fill: currentColor;
+  dominant-baseline: middle;
+}
