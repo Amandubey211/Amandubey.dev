@@ -1,23 +1,21 @@
-import Link from "next/link";
+// src/app/layout.tsx  (server component, no 'use client' needed)
 import "@fontsource/inter";
 import "./globals.css";
-export default function RootLayout({
-  children,
-}: {
+import { NavBar } from "@/components/NavBar";
+
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className="font-sans text-gray-900 ">
-        <header className="bg-white text-black shadow-sm p-4">
-          <nav className="flex gap-6 text-sm font-medium">
-            <Link href="/">Home</Link>
-            <Link href="/about">About</Link>
-            <Link href="/dashboard">Dashboard</Link>
-            <Link href="/blog">Blogs</Link>
-          </nav>
-        </header>
-        <main className="p-6">{children}</main>
+      <body className="font-sans text-gray-100 ">
+        {/* ── animated nav */}
+        <NavBar />
+
+        {/* push content below full-height hero so nav doesn’t overlap small screens */}
+        <main className="pt-28 md:pt-32">{children}</main>
       </body>
     </html>
   );
