@@ -1,11 +1,6 @@
 // lib/blog.ts
 export const blogPosts = [
   {
-    slug: "aman",
-    title: "sdfsdf",
-    content: "This is your first blog post. Welcome!",
-  },
-  {
     slug: "getting-started",
     title: "Getting Started with Next.js",
     content: "This is your first blog post. Welcome!",
