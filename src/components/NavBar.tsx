@@ -1,26 +1,40 @@
 "use client";
 
-import { useTheme } from "next-themes";
-import { useMountedState } from "react-use"; // tiny util, optional
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
+import Link from "next/link";
 import clsx from "clsx";
+import { motion } from "framer-motion";
 
+/* ───── route-change progress bar (NProgress) ───── */
+import Router from "next/router";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+import "@/app/nprogress-custom.css";
+
+NProgress.configure({ showSpinner: false, trickleSpeed: 80 });
+
+/* ───── nav links ───── */
 const links = [
   { label: "Home", path: "/" },
   { label: "About", path: "/about" },
   { label: "Projects", path: "/projects" },
   { label: "Contact", path: "/contact" },
-  //   { label: "Blog", path: "/blog" },
 ] as const;
 
 export function NavBar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-
-  /* scroll listener */
+  /* start / stop when pathname changes */
+  useEffect(() => {
+    NProgress.start();
+    /* give the new page a single tick to render, then finish */
+    const t = setTimeout(() => NProgress.done(), 200); // adjust if you like
+    return () => clearTimeout(t);
+  }, [pathname]);
+  /* scroll → pill or full bar */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 120);
     onScroll();
@@ -28,14 +42,13 @@ export function NavBar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* theme hook */
+  /* theme switch */
   const { theme, setTheme } = useTheme();
-  const mounted = useMountedState(); // prevents SSR mismatch
 
   const container = clsx(
-    "fixed inset-x-0 z-50 flex items-center justify-between transition-all duration-300",
+    "fixed inset-x-0 z-50 flex items-center justify-between transition-colors mx-auto",
     scrolled
-      ? "top-4 mx-auto w-[92%] md:w-[70%] rounded-full bg-white/5 backdrop-blur-lg py-3 pl-10 pr-8 shadow-lg"
+      ? "top-4 w-[92%] md:w-[70%] rounded-full bg-white/5 backdrop-blur-lg py-3 pl-10 pr-8 shadow-lg"
       : "top-0 w-full py-6 px-40"
   );
 
@@ -43,7 +56,12 @@ export function NavBar() {
     "group flex items-center gap-2 text-sm md:text-base font-medium transition-colors";
 
   return (
-    <nav className={container}>
+    <motion.nav
+      className={container}
+      layout
+      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      initial={false}
+    >
       {/* logo */}
       <Link
         href="/"
@@ -52,29 +70,24 @@ export function NavBar() {
         AD
       </Link>
 
-      {/* central links */}
+      {/* links */}
       <ul className="hidden md:flex gap-10">
         {links.map(({ label, path }) => {
-          const isActive =
-            path === "/"
-              ? pathname === "/"
-              : pathname === path || pathname.startsWith(path + "/");
-
+          const active =
+            path === "/" ? pathname === "/" : pathname.startsWith(path);
           return (
             <li key={label}>
               <Link
                 href={path}
                 className={clsx(
                   linkBase,
-                  isActive ? "text-white" : "text-white/60 hover:text-white/90"
+                  active ? "text-white" : "text-white/60 hover:text-white/90"
                 )}
               >
                 <span
                   className={clsx(
                     "w-2 h-2 rounded-full bg-lime-400 transition-opacity",
-                    isActive
-                      ? "opacity-100"
-                      : "opacity-0 group-hover:opacity-40"
+                    active ? "opacity-100" : "opacity-0 group-hover:opacity-40"
                   )}
                 />
                 {label}
@@ -85,19 +98,17 @@ export function NavBar() {
       </ul>
 
       {/* theme toggle */}
-      {mounted() && (
-        <button
-          aria-label="Toggle theme"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="text-white hover:text-white/90 transition"
-        >
-          {theme === "dark" ? (
-            <Sun className="size-5" />
-          ) : (
-            <Moon className="size-5" />
-          )}
-        </button>
-      )}
-    </nav>
+      <button
+        aria-label="Toggle theme"
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        className="text-white hover:text-white/90 transition"
+      >
+        {theme === "dark" ? (
+          <Sun className="size-5" />
+        ) : (
+          <Moon className="size-5" />
+        )}
+      </button>
+    </motion.nav>
   );
 }

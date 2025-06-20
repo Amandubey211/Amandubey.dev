@@ -24,3 +24,22 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* app/nprogress-custom.css */
+#nprogress {
+  pointer-events: none;
+}
+#nprogress .bar {
+  background: #a3ff4e; /* lime-green */
+  height: 3px; /* very thin */
+  z-index: 9999 !important; /* above everything */
+}
+
+/* optional little glow */
+#nprogress .peg {
+  box-shadow: 0 0 8px #a3ff4e, 0 0 5px #a3ff4e;
+}

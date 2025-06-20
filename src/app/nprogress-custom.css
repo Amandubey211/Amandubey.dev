@@ -1,0 +1,9 @@
+/* #nprogress .bar = thin lime strip */
+#nprogress .bar {
+  background: #a3ff4e; /* lime-green */
+  height: 3px; /* “very thin” */
+}
+/* remove default blur on dark bg */
+#nprogress .peg {
+  box-shadow: 0 0 10px #a3ff4e, 0 0 5px #a3ff4e;
+}

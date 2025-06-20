@@ -2,12 +2,13 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-
+import { Hand } from "lucide-react";
+import BlurText from "@/components/BlurText"; /* ← path to the file you pasted */
 import { SocialRow } from "./SocialRow";
 import { HeroMarquee } from "./HeroMarquee";
 
 export function HeroSection() {
-  /* ───── stagger presets */
+  /* simple stagger helpers (unchanged) */
   const parent = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.08 } },
@@ -18,56 +19,81 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative max-w-7xl mx-auto px-6 md:px-12 pt-32 pb-40">
-      {/* greeting row */}
+    <section className="relative max-w-7xl mx-auto px-6 md:px-12 pt-32 pb-44">
+      {/* wave greeting */}
       <motion.p
         variants={child}
         initial="hidden"
-        animate="show"
-        className="flex items-center gap-2 text-lg text-gray-200 mb-10"
+        animate="visible"
+        className="flex items-center gap-2 text-lg text-gray-200 mb-6"
       >
-        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-lime-500/20 text-lime-400">
-          👋
-        </span>
-        Hey! It‘s me <span className="font-medium">Devraj</span>,
-      </motion.p>
-      <motion.div variants={parent} initial="hidden" animate="visible">
-        <motion.h1
-          variants={child}
-          className="font-bold leading-[0.9] text-[clamp(2.7rem,8vw,6rem)] max-w-5xl"
+        <motion.span
+          animate={{ rotate: [0, 20, -10, 20, -5, 0] }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            repeatDelay: 2,
+            ease: "easeInOut",
+          }}
+          className="inline-flex items-center justify-center w-8 h-8 rounded-full text-lime-400 origin-bottom"
         >
-          Crafting <span className="text-lime-400">purpose</span>
-          <br className="sm:hidden" /> driven experiences
-          <br /> that inspire&nbsp;&amp;&nbsp;engage.
-        </motion.h1>
+          <Hand className="w-8 h-8 text-lime-500" />
+        </motion.span>
+        Hey! It’s me <span className="font-medium">Aman</span>,
+      </motion.p>
 
-        {/* description & CTA */}
+      {/* headline with BlurText */}
+      <motion.div variants={parent} initial="hidden" animate="visible">
+        <BlurText
+          text="Crafting purpose driven experiences that inspire & engage."
+          animateBy="words"
+          direction="top"
+          className="font-bold leading-[0.9] text-[clamp(2.7rem,8vw,6rem)] max-w-5xl text-white"
+          delay={80}
+          stepDuration={0.4}
+          /* highlight “purpose” and “engage” after animation finishes */
+          onAnimationComplete={() => {
+            document.querySelectorAll(".blur-text span").forEach((span) => {
+              if (/purpose|engage/i.test(span.textContent || "")) {
+                span.classList.add("text-lime-400");
+              }
+            });
+          }}
+        />
+
+        {/* description + CTA */}
         <motion.div
           variants={child}
           className="mt-14 grid md:grid-cols-[1fr_auto] gap-10 items-start"
         >
           <p className="max-w-xl text-gray-400 leading-relaxed">
-            I work with brands globally to build pixel-perfect, engaging, and
-            accessible digital experiences that drive results and achieve
-            business goals.
+            I build pixel-perfect, accessible web experiences and shave&nbsp;
+            <span className="text-lime-400 font-medium">50 %</span>&nbsp;from
+            load times with clean architecture and smart optimisation.
           </p>
 
           <Link
             href="/about"
-            className="whitespace-nowrap rounded-full border border-white/30 hover:border-white px-10 py-4 text-sm transition"
+            className="relative inline-flex items-center justify-center rounded-full border border-white/40 px-10 py-4 text-sm overflow-hidden group"
           >
-            Know me better
+            <motion.span
+              initial={{ y: "100%" }}
+              whileHover={{ y: 0 }}
+              transition={{ duration: 0.55, ease: "easeInOut" }}
+              className="absolute inset-0 bg-white/90 [clip-path:ellipse(150%_85%_at_50%_115%)]"
+            />
+            <span className="relative z-10 transition-colors duration-300 group-hover:text-black">
+              Know me better
+            </span>
           </Link>
         </motion.div>
       </motion.div>
 
-      {/* thin divider */}
+      {/* divider */}
       <hr className="mt-16 border-white/10" />
 
-      {/* socials */}
+      {/* socials + marquee */}
       <SocialRow className="mt-10" />
-
-      {/* scrolling word marquee */}
       <HeroMarquee className="absolute -bottom-24 left-0 w-full" />
     </section>
   );
