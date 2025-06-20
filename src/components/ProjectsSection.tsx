@@ -1,3 +1,4 @@
+/* eslint react/no-unescaped-entities: "error" */
 "use client";
 
 import Image from "next/image";
@@ -23,6 +24,7 @@ const projects = [
 export function ProjectsSection() {
   return (
     <section id="projects" className="max-w-7xl mx-auto px-6 md:px-8 py-32">
+      {/* heading */}
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -42,9 +44,10 @@ export function ProjectsSection() {
       >
         Selected Projects
       </motion.h3>
+
       <p className="text-gray-400 mb-14 max-w-lg">
-        Here '&apos' s a curated selection showcasing my expertise and the
-        achieved results.
+        Here&nbsp;<span className="sr-only">is</span>&apos;s&nbsp;a curated
+        selection showcasing my expertise and the achieved results.
       </p>
 
       {/* grid */}
@@ -52,7 +55,6 @@ export function ProjectsSection() {
         {projects.map((p) => (
           <motion.div
             key={p.slug}
-            // whileHover={{ translateY: -6 }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
             className="space-y-4"
           >
@@ -69,7 +71,7 @@ export function ProjectsSection() {
               />
             </Link>
             <h4 className="text-xl font-semibold">{p.title}</h4>
-            <p className="text-gray-500">Development &amp Design</p>
+            <p className="text-gray-500">Development&nbsp;&amp;&nbsp;Design</p>
             <span className="text-gray-500 text-sm">{p.year}</span>
           </motion.div>
         ))}

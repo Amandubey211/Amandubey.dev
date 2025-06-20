@@ -19,11 +19,22 @@ export function HeroSection() {
 
   return (
     <section className="relative max-w-7xl mx-auto px-6 md:px-12 pt-32 pb-40">
-      {/* headline + greeting */}
+      {/* greeting row */}
+      <motion.p
+        variants={child}
+        initial="hidden"
+        animate="show"
+        className="flex items-center gap-2 text-lg text-gray-200 mb-10"
+      >
+        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-lime-500/20 text-lime-400">
+          👋
+        </span>
+        Hey! It‘s me <span className="font-medium">Devraj</span>,
+      </motion.p>
       <motion.div variants={parent} initial="hidden" animate="visible">
         <motion.h1
           variants={child}
-          className="font-extrabold leading-[0.9] text-[clamp(2.7rem,8vw,6rem)] max-w-5xl"
+          className="font-bold leading-[0.9] text-[clamp(2.7rem,8vw,6rem)] max-w-5xl"
         >
           Crafting <span className="text-lime-400">purpose</span>
           <br className="sm:hidden" /> driven experiences
