@@ -43,13 +43,13 @@ export function ProjectsSection() {
         Selected Projects
       </motion.h3>
       <p className="text-gray-400 mb-14 max-w-lg">
-        Here's a curated selection showcasing my expertise and the achieved
-        results.
+        Here '&apos' s a curated selection showcasing my expertise and the
+        achieved results.
       </p>
 
       {/* grid */}
       <div className="grid md:grid-cols-2 gap-14">
-        {projects.map((p, i) => (
+        {projects.map((p) => (
           <motion.div
             key={p.slug}
             // whileHover={{ translateY: -6 }}
