@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, Transition } from "framer-motion";
 import { useEffect, useRef, useState, useMemo } from "react";
 
@@ -103,8 +105,8 @@ const BlurText: React.FC<BlurTextProps> = ({
           duration: totalDuration,
           times,
           delay: (index * delay) / 1000,
+          ease: easing,
         };
-        (spanTransition as any).ease = easing;
 
         return (
           <motion.span

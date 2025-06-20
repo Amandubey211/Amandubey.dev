@@ -9,7 +9,6 @@ import clsx from "clsx";
 import { motion } from "framer-motion";
 
 /* ───── route-change progress bar (NProgress) ───── */
-import Router from "next/router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import "@/app/nprogress-custom.css";

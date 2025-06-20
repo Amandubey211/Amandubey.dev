@@ -7,7 +7,7 @@ import ShinyText from "./ShinyText"; // Adjust the import path as needed
 const socials = [
   { label: "LINKEDIN", href: "https://www.linkedin.com/in/profile-amandubey/" },
   { label: "GITHUB", href: "https://github.com/Amanstudentdiwan" },
-  { label: "INSTAGRAM", href: "https://www.instagram.com/" }, // optional
+  // { label: "INSTAGRAM", href: "https://www.instagram.com/" }, // optional
   { label: "GMAIL", href: "mailto:amandubey8833@gmail.com" },
 ] as const;
 

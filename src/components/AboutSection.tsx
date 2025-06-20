@@ -24,13 +24,13 @@ export function AboutSection() {
         containerClassName=""
         textClassName="text-3xl md:text-4xl leading-snug text-gray-200"
         enableBlur={true}
-        blurStrength={10} // Increased from default 5 to make more noticeable
-        baseOpacity={0.2} // Lower initial opacity for more dramatic effect
+        blurStrength={10}
+        baseOpacity={0.2}
       >
-        I'm Aman Dubey, an MCA-trained full-stack dev who crafts lightning-fast
-        React and MERN products. I obsess over clean architecture,
-        micro-animations and Core Web Vitals—often slicing load times by 50
-        percent while keeping accessibility at 100 percent.
+        I&apos;m Aman Dubey, an MCA-trained full-stack dev who crafts
+        lightning-fast React and MERN products. I obsess over clean
+        architecture, micro-animations and Core Web Vitals—often slicing load
+        times by 50 percent while keeping accessibility at 100 percent.
       </ScrollReveal>
     </section>
   );
