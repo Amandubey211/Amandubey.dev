@@ -3,6 +3,7 @@ import "@fontsource/inter";
 import "./globals.css";
 import { NavBar } from "@/components/NavBar";
 import LenisWrapper from "@/components/LenisWrapper";
+// import SplashCursor from "@/components/SplashCursor";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -14,7 +15,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="font-sans text-gray-100">
         {/* ── animated nav */}
         <NavBar />
-
+        {/* <SplashCursor /> */}
         {/* push content below full-height hero so nav doesn't overlap small screens */}
         <main className="pt-28 md:pt-32">
           <LenisWrapper>{children}</LenisWrapper>
