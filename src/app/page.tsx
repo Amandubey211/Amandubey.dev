@@ -7,7 +7,6 @@ import { AboutSection } from "@/components/AboutSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { ExpertiseSection } from "@/components/ExpertiseSection";
 import { TechMarquee } from "@/components/TechMarquee";
-import SplashCursor from "@/components/SplashCursor";
 
 /** — Dynamic <title> — */
 export const metadata = {
@@ -18,8 +17,6 @@ export const metadata = {
 export default function HomePage() {
   return (
     <main className="relative min-h-screen text-white overflow-x-hidden">
-      <SplashCursor />
-
       <HeroSection />
       <AboutSection />
       <ProjectsSection />
