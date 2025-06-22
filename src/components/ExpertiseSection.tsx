@@ -13,7 +13,6 @@ import {
   Braces,
   FileJson,
   Box,
-  Code,
   CircuitBoard,
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
@@ -81,7 +80,10 @@ export function ExpertiseSection() {
         {/* accordion */}
         <div className="space-y-4">
           {items.map((it, idx) => (
-            <div key={it.title} className="bg-white/5 rounded-2xl overflow-hidden">
+            <div
+              key={it.title}
+              className="bg-white/5 rounded-2xl overflow-hidden"
+            >
               <button
                 onClick={() => setOpen(open === idx ? null : idx)}
                 className="flex w-full items-center justify-between p-6 text-lg font-medium text-white"
@@ -106,9 +108,7 @@ export function ExpertiseSection() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.4, ease: "easeInOut" }}
                   >
-                    <div className="px-6 pb-6 text-gray-400">
-                      {it.body}
-                    </div>
+                    <div className="px-6 pb-6 text-gray-400">{it.body}</div>
                   </motion.div>
                 )}
               </AnimatePresence>
