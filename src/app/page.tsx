@@ -7,6 +7,8 @@ import { AboutSection } from "@/components/AboutSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { ExpertiseSection } from "@/components/ExpertiseSection";
 import { TechMarquee } from "@/components/TechMarquee";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
+import { CallToActionSection } from "@/components/CallToActionSection";
 
 /** — Dynamic <title> — */
 export const metadata = {
@@ -21,7 +23,8 @@ export default function HomePage() {
       <AboutSection />
       <ProjectsSection />
       <ExpertiseSection />
-      <TechMarquee className="absolute bottom-0 left-0 w-full" />
+      <TestimonialsSection />
+      <CallToActionSection />
     </main>
   );
 }
