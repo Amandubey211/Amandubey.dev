@@ -1,3 +1,6 @@
+export const metadata = {
+  title: "Project | Aman Dubey",
+};
 export default function ProjectPage() {
   return (
     <main className="p-10">

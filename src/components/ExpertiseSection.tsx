@@ -21,6 +21,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import gsap from "gsap";
 import Experties from "@/assets/home/Experties.jpg";
+import { TechStackSlider } from "./TechStackSlider";
 
 const items = [
   {
@@ -30,13 +31,18 @@ const items = [
   },
   {
     title: "UI/UX Design",
-    body: "Design systems, wire-frames & delightful user interfaces.",
+    body: "Design systems, wireframes & delightful user interfaces.",
     icon: <PenTool className="w-5 h-5 text-lime-400 mr-2" />,
   },
   {
     title: "Branding",
     body: "Creating memorable brand identities & visual languages.",
     icon: <BadgePercent className="w-5 h-5 text-lime-400 mr-2" />,
+  },
+  {
+    title: "DevOps & Deployment",
+    body: "Implementing CI/CD pipelines, containerization with Docker, and cloud deployment strategies.",
+    icon: <Server className="w-5 h-5 text-lime-400 mr-2" />,
   },
 ];
 
@@ -69,6 +75,7 @@ export function ExpertiseSection() {
 
   return (
     <section className="max-w-7xl mx-auto px-6 md:px-8 py-32">
+      {/* Title */}
       <h2 className="flex items-center gap-2 text-lime-400 tracking-wider mb-6">
         <Sparkles size={18} /> SPECIALITY
       </h2>
@@ -76,8 +83,9 @@ export function ExpertiseSection() {
         Areas of Expertise
       </h3>
 
+      {/* Accordion + Image */}
       <div className="grid md:grid-cols-2 gap-10">
-        {/* accordion */}
+        {/* Accordion */}
         <div className="space-y-4">
           {items.map((it, idx) => (
             <div
@@ -116,7 +124,7 @@ export function ExpertiseSection() {
           ))}
         </div>
 
-        {/* illustrative image */}
+        {/* Image */}
         <Image
           src={Experties}
           alt="office desk"
@@ -126,20 +134,14 @@ export function ExpertiseSection() {
         />
       </div>
 
-      {/* Tech Stack Scroller */}
-      <div ref={containerRef} className="relative mt-20 overflow-hidden">
-        <div className="flex gap-6 whitespace-nowrap w-max" id="techScroller">
-          {[...techStack, ...techStack].map((tech, idx) => (
-            <div
-              key={idx}
-              className="bg-white/5 text-white px-4 py-2 rounded-full text-sm font-medium border border-white/10 backdrop-blur-sm flex items-center"
-            >
-              {tech.icon}
-              {tech.name}
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* Tech Stack Slider */}
+      <TechStackSlider
+        items={techStack}
+        speed={20}
+        direction="left"
+        className="mt-12"
+        itemClassName="bg-[#1e1e1e] text-white/90 px-4 py-2 rounded-full text-sm font-medium border border-white/10 flex items-center gap-2"
+      />
     </section>
   );
 }
