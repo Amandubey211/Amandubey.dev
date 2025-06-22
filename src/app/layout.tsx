@@ -5,6 +5,7 @@ import { NavBar } from "@/components/NavBar";
 import LenisWrapper from "@/components/LenisWrapper";
 // import BlobCursor from "@/components/BlobCursor";
 import { Footer } from "@/components/Footer";
+import { CallToActionSection } from "@/components/CallToActionSection";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         /> */}
         <main className="pt-28 md:pt-32">
           <LenisWrapper>{children}</LenisWrapper>
+          <CallToActionSection />
           <Footer />
         </main>
       </body>
