@@ -3,7 +3,7 @@ import "@fontsource/inter";
 import "./globals.css";
 import { NavBar } from "@/components/NavBar";
 import LenisWrapper from "@/components/LenisWrapper";
-import BlobCursor from "@/components/BlobCursor";
+// import BlobCursor from "@/components/BlobCursor";
 import { Footer } from "@/components/Footer";
 
 interface RootLayoutProps {

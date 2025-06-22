@@ -1,13 +1,13 @@
 /* components/TestimonialsSection.tsx */
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Star } from "lucide-react";
 
-import { testimonials } from "@/lib/testimonials"; // ← your config file
+import { testimonials } from "@/lib/testimonials";
 
 /* ───────────────────────── constants ───────────────────────── */
 const AUTO_DELAY = 8_000; // ms between slides
@@ -18,9 +18,26 @@ const MAX_QUOTE_LENGTH = 300; // characters before showing "See more"
 /* ───────────────────────── component ───────────────────────── */
 export function TestimonialsSection() {
   const [index, setIndex] = useState(0);
-  const [expandedTestimonial, setExpandedTestimonial] = useState<number | null>(null);
+  const [expandedTestimonial, setExpandedTestimonial] = useState<number | null>(
+    null
+  );
   const progressAnim = useAnimation();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  /* helpers */
+  const next = useCallback(() => {
+    setExpandedTestimonial(null);
+    setIndex((i) => (i + 1) % testimonials.length);
+  }, []);
+
+  const prev = useCallback(() => {
+    setExpandedTestimonial(null);
+    setIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
+  }, []);
+
+  const toggleExpand = useCallback(() => {
+    setExpandedTestimonial(expandedTestimonial === index ? null : index);
+  }, [expandedTestimonial, index]);
 
   /* autoplay + progress-ring */
   useEffect(() => {
@@ -36,26 +53,14 @@ export function TestimonialsSection() {
       progressAnim.stop();
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [index]); //  restart whenever slide changes
-
-  /* helpers */
-  const next = () => {
-    setExpandedTestimonial(null);
-    setIndex((i) => (i + 1) % testimonials.length);
-  };
-  const prev = () => {
-    setExpandedTestimonial(null);
-    setIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
-  };
-
-  const toggleExpand = () => {
-    setExpandedTestimonial(expandedTestimonial === index ? null : index);
-  };
+  }, [index, next, progressAnim]);
 
   const t = testimonials[index];
   const isLongQuote = t.quote.length > MAX_QUOTE_LENGTH;
   const showSeeMore = isLongQuote && expandedTestimonial !== index;
-  const displayedQuote = showSeeMore ? `${t.quote.substring(0, MAX_QUOTE_LENGTH)}...` : t.quote;
+  const displayedQuote = showSeeMore
+    ? `${t.quote.substring(0, MAX_QUOTE_LENGTH)}...`
+    : t.quote;
 
   /* ───────────────────────── UI ───────────────────────── */
   return (
@@ -74,13 +79,14 @@ export function TestimonialsSection() {
           </h3>
 
           <p className="text-gray-400 max-w-md mb-10">
-            I've collaborated with some amazing people — here's what they
-            think of working with me.
+            I&apos;ve collaborated with some amazing people — here&apos;s what
+            they think of working with me.
           </p>
 
           <Link
             href="https://www.linkedin.com/in/profile-amandubey/details/recommendations/"
             target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 border-b border-white/30 hover:border-white transition text-white"
           >
             Check it out on LinkedIn <ArrowUpRight size={14} />
@@ -96,7 +102,7 @@ export function TestimonialsSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -80 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="rounded-3xl border border-white/10 bg-white/5/10 backdrop-blur-md p-8 md:p-10 shadow-xl min-h-[300px] flex flex-col"
+              className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-8 md:p-10 shadow-xl min-h-[300px] flex flex-col"
             >
               {/* avatar + ring */}
               <div className="flex items-center gap-4 mb-6">
