@@ -50,6 +50,8 @@ export function ProjectsSection() {
               className={`block overflow-hidden rounded-3xl shadow-xl ${bg}`}
             >
               <Image
+                placeholder="blur"
+                blurDataURL="https://amandubey.onrender.com/static/media/ProDash.88473c0881bc86b59751.png"
                 src={img}
                 alt={title}
                 width={900}

@@ -17,17 +17,19 @@ NProgress.configure({ showSpinner: false, trickleSpeed: 80 });
 const links = [
   { label: "Home", path: "/" },
   { label: "About", path: "/about" },
-  // { label: "Projects", path: "/projects" },
+  { label: "Projects", path: "/projects" },
+  { label: "Blog", path: "/blog" },
+
   { label: "Contact", path: "/contact" },
   { label: "Play", path: "/play" },
 ] as const;
 
 export function NavBar() {
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
+  // const { theme, setTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const { resolvedTheme, setTheme } = useTheme();
   /* Route-change progress */
   useEffect(() => {
     NProgress.start();
@@ -77,7 +79,7 @@ export function NavBar() {
         </Link>
 
         {/* desktop links */}
-        <ul className="hidden md:flex gap-10">
+        <ul className="hidden md:flex gap-8">
           {links.map(({ label, path }) => {
             const active =
               path === "/" ? pathname === "/" : pathname.startsWith(path);
@@ -110,10 +112,12 @@ export function NavBar() {
           {/* theme toggle */}
           <button
             aria-label="Toggle theme"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={() =>
+              setTheme(resolvedTheme === "dark" ? "light" : "dark")
+            }
             className="text-white hover:text-white/90 transition"
           >
-            {theme === "dark" ? (
+            {resolvedTheme === "dark" ? (
               <Sun className="size-5" />
             ) : (
               <Moon className="size-5" />
