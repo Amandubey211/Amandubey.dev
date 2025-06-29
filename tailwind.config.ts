@@ -1,5 +1,5 @@
 export default {
-  darkMode: "class", // ← add if not present
+  darkMode: "class",
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {

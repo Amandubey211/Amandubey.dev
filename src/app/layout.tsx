@@ -1,32 +1,28 @@
-// src/app/layout.tsx
+/* src/app/layout.tsx */
 import "@fontsource/inter";
 import "./globals.css";
 import { NavBar } from "@/components/NavBar";
 import LenisWrapper from "@/components/LenisWrapper";
-// import BlobCursor from "@/components/BlobCursor";
 import { Footer } from "@/components/Footer";
 import { CallToActionSection } from "@/components/CallToActionSection";
+// import ThemeProvider from "@/app/ThemeProvider";
 
-interface RootLayoutProps {
+export default function RootLayout({
+  children,
+}: {
   children: React.ReactNode;
-}
-
-export default function RootLayout({ children }: RootLayoutProps) {
+}) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="font-sans text-gray-100">
+        {/* <ThemeProvider> */}
         <NavBar />
-        {/* <BlobCursor
-          isActive={true}
-          textScale={0.6} // Smaller over text
-          linkOpacity={0.3} // More transparent over links
-          fillColor="#9ae600"
-        /> */}
         <main className="pt-28 md:pt-32">
           <LenisWrapper>{children}</LenisWrapper>
           <CallToActionSection />
           <Footer />
         </main>
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );
