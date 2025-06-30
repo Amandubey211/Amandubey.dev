@@ -21,7 +21,6 @@ const links = [
   { label: "Blog", path: "/blog" },
 
   { label: "Contact", path: "/contact" },
-  { label: "Play", path: "/play" },
 ] as const;
 
 export function NavBar() {
