@@ -6,7 +6,6 @@ import { HeroSection } from "@/components/HeroSection";
 import { AboutSection } from "@/components/AboutSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { ExpertiseSection } from "@/components/ExpertiseSection";
-// import { TechMarquee } from "@/components/TechMarquee";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 
 /** — Dynamic <title> — */
