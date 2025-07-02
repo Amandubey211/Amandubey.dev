@@ -16,12 +16,12 @@ export default function AboutHero() {
       {/* photo + CTA */}
       <div className="relative flex justify-center md:justify-end">
         <Image
-          src={Aman} /* replace */
+          src={Aman}
           alt="Aman Dubey"
           width={560}
           height={680}
           priority
-          className="rounded-[40px] object-cover shadow-2xl"
+          className="rounded-[40px] object-cover shadow-2xl opacity-80"
         />
 
         {/* spinning disc */}
@@ -31,7 +31,7 @@ export default function AboutHero() {
           transition={{ repeat: Infinity, duration: 12, ease: "linear" }}
           style={{ width: radius * 2, height: radius * 2 }}
           className="absolute -bottom-10 left-2 md:left-auto md:-right-12
-                     text-[0.72rem] tracking-wider text-white/90 select-none"
+                "
         >
           <svg width={radius * 2} height={radius * 2}>
             <defs>
@@ -45,8 +45,10 @@ export default function AboutHero() {
                 fill="none"
               />
             </defs>
-            <text dy="5" textLength={text.length * 6.8}>
-              <textPath href="#circlePath">{text.repeat(4)}</textPath>
+            <text dy="20">
+              <textPath className="text-xl" href="#circlePath">
+                {text.repeat(4)}
+              </textPath>
             </text>
             <circle
               cx={radius}
@@ -55,12 +57,12 @@ export default function AboutHero() {
               fill="none"
               stroke="currentColor"
               strokeWidth="1"
-              opacity={0.12}
+              opacity={0.7}
             />
           </svg>
 
           <span className="absolute inset-0 flex items-center justify-center">
-            <ArrowUpRight className="size-6 text-white" />
+            <ArrowUpRight className="size-16 text-white" />
           </span>
         </motion.div>
       </div>

@@ -1,4 +1,3 @@
-/* app/(marketing)/contact/page.tsx */
 import Image from "next/image";
 import {
   Sparkles,

@@ -5,7 +5,7 @@ import { NavBar } from "@/components/NavBar";
 import LenisWrapper from "@/components/LenisWrapper";
 import { Footer } from "@/components/Footer";
 import { CallToActionSection } from "@/components/CallToActionSection";
-// import ThemeProvider from "@/app/ThemeProvider";
+import { lusitana } from "@/components/fonts";
 
 export default function RootLayout({
   children,
@@ -14,7 +14,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="font-sans text-gray-100">
+      <body className={`${lusitana.className} antialiased`}>
+        {/* <body> */}
         {/* <ThemeProvider> */}
         <NavBar />
         <main className="pt-28 md:pt-32">
