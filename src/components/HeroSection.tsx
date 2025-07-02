@@ -19,7 +19,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative max-w-7xl mx-auto px-6 md:px-12 pt-32 pb-44">
+    <section className="relative max-w-5xl mx-auto px-6 md:px-12 pt-32 pb-44">
       {/* wave greeting */}
       <motion.p
         variants={child}
@@ -48,13 +48,13 @@ export function HeroSection() {
           text="Crafting purpose driven experiences that inspire & engage."
           animateBy="words"
           direction="top"
-          className="font-bold leading-[0.9] text-[clamp(2.7rem,8vw,6rem)] max-w-5xl text-white"
+          className="font-bold leading-[0.9] text-[clamp(2.7rem,8vw,6rem)] max-w-4xl text-white"
           delay={80}
           stepDuration={0.4}
           /* highlight “purpose” and “engage” after animation finishes */
           onAnimationComplete={() => {
             document.querySelectorAll(".blur-text span").forEach((span) => {
-              if (/purpose|engage/i.test(span.textContent || "")) {
+              if (/purpose driven|engage/i.test(span.textContent || "")) {
                 span.classList.add("text-lime-400");
               }
             });
