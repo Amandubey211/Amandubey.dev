@@ -19,6 +19,7 @@ const links = [
   { label: "About", path: "/about" },
   { label: "Projects", path: "/projects" },
   { label: "Blog", path: "/blog" },
+  { label: "Products", path: "/Products" },
 
   { label: "Contact", path: "/contact" },
 ] as const;
