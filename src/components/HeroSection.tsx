@@ -60,7 +60,6 @@ export function HeroSection() {
             });
           }}
         />
-
         {/* description + CTA */}
         <motion.div
           variants={child}
