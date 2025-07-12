@@ -6,7 +6,7 @@ import LenisWrapper from "@/components/LenisWrapper";
 import { Footer } from "@/components/Footer";
 import { CallToActionSection } from "@/components/CallToActionSection";
 import { sora } from "@/components/fonts";
-
+import { Analytics } from "@vercel/analytics/next";
 export default function RootLayout({
   children,
 }: {
@@ -21,6 +21,7 @@ export default function RootLayout({
           <CallToActionSection />
           <Footer />
         </main>
+        <Analytics />
       </body>
     </html>
   );
