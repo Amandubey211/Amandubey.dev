@@ -6,6 +6,7 @@ import { Hand } from "lucide-react";
 import BlurText from "@/components/BlurText"; /* ← path to the file you pasted */
 import { SocialRow } from "./SocialRow";
 import { HeroMarquee } from "./HeroMarquee";
+import { ShinyButton } from "./ShinyButton";
 
 export function HeroSection() {
   /* simple stagger helpers (unchanged) */
@@ -19,7 +20,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative max-w-5xl mx-auto px-6 md:px-12 pt-32 pb-44">
+    <section className="relative max-w-5xl mx-auto px-6 md:px-12 pt-12 pb-44">
       {/* wave greeting */}
       <motion.p
         variants={child}
@@ -39,7 +40,7 @@ export function HeroSection() {
         >
           <Hand className="w-8 h-8 text-lime-500" />
         </motion.span>
-        Hey! It’s me <span className="font-medium">Aman</span>,
+        Hey! It’s me <span className="font-medium">Aman,</span>
       </motion.p>
 
       {/* headline with BlurText */}
@@ -48,13 +49,13 @@ export function HeroSection() {
           text="Crafting purpose driven experiences that inspire & engage."
           animateBy="words"
           direction="top"
-          className="font-bold leading-[0.9] text-[clamp(2.7rem,8vw,6rem)] max-w-4xl text-white"
+          className="font-semibold leading-[0.9] text-[clamp(2.1rem,7vw,5rem)] max-w-4xl text-white"
           delay={80}
           stepDuration={0.4}
           /* highlight “purpose” and “engage” after animation finishes */
           onAnimationComplete={() => {
             document.querySelectorAll(".blur-text span").forEach((span) => {
-              if (/purpose driven|engage/i.test(span.textContent || "")) {
+              if (/purpose|driven|experiences/i.test(span.textContent || "")) {
                 span.classList.add("text-lime-400");
               }
             });
@@ -71,19 +72,17 @@ export function HeroSection() {
             load times with clean architecture and smart optimisation.
           </p>
 
-          <Link
-            href="/about"
-            className="relative inline-flex items-center justify-center rounded-full border border-white/40 px-10 py-4 text-sm overflow-hidden group"
-          >
-            <motion.span
+          <Link href="/about">
+            {/* <motion.span
               initial={{ y: "100%" }}
               whileHover={{ y: 0 }}
               transition={{ duration: 0.55, ease: "easeInOut" }}
               className="absolute inset-0 bg-white/90 [clip-path:ellipse(150%_85%_at_50%_115%)]"
-            />
-            <span className="relative z-10 transition-colors duration-300 group-hover:text-black">
+            /> */}
+            {/* <span className="relative z-10 transition-colors duration-300 group-hover:text-black">
               Know me better
-            </span>
+            </span> */}
+            <ShinyButton initialText="Know me better" hoverText="About me" />
           </Link>
         </motion.div>
       </motion.div>
@@ -93,7 +92,7 @@ export function HeroSection() {
 
       {/* socials + marquee */}
       <SocialRow className="mt-10" />
-      <HeroMarquee className="absolute -bottom-24 left-0 w-full" />
+      <HeroMarquee className="absolute -bottom-2 left-0 w-full" />
     </section>
   );
 }

@@ -9,7 +9,7 @@ import { projects } from "@/lib/projects";
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="mx-auto max-w-7xl px-6 md:px-8 py-32">
+    <section id="projects" className="mx-auto max-w-7xl px-6 md:px-18 py-16">
       {/* heading */}
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
