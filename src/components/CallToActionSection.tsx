@@ -4,52 +4,59 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { ShinyButton } from "./ShinyButton";
 
 export function CallToActionSection() {
   return (
     <section className="px-4 sm:px-8 lg:px-16 mt-6 mb-3">
       <motion.div
-        initial={{ opacity: 0, scale: 0.94 }}
+        initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        viewport={{ once: true, amount: 0.4 }}
+        viewport={{ once: true, amount: 0.2 }}
         /* card */
         className="mx-auto w-full max-w-screen-lg
-                   rounded-[48px] border border-white/10 bg-white/5
-                   backdrop-blur-md text-center
-                   px-6 sm:px-12 lg:px-20 py-16 sm:py-24"
+                   rounded-[32px]  border-white/10 bg-[#101010]
+                   backdrop-blur-xl text-center
+                   px-6 py-10"
       >
         {/* status pill */}
-        <span
-          className="mx-auto mb-6 inline-flex items-center gap-3
-                         rounded-full bg-[#141c13] px-6 sm:px-7 py-[10px]
-                         text-sm sm:text-[15px] font-medium text-gray-100"
+        <div
+          className="mx-auto mb-8 inline-flex items-center gap-2.5
+                         rounded-full bg-white/5 px-4 py-1.5
+                         text-sm font-medium text-gray-200"
         >
-          <span className="block h-[9px] w-[9px] rounded-full bg-lime-400" />
-          Available&nbsp;for&nbsp;work
-        </span>
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-lime-500"></span>
+          </span>
+          Available for work
+        </div>
 
         {/* headline */}
         <h2
-          className="mb-6 font-bold leading-tight tracking-tight
-                       text-[clamp(1.75rem,7.5vw,3.5rem)]   /* 28–56 px */
-                       sm:text-[clamp(2rem,5.5vw,3.8rem)]   /* 32–61 px */
-                       text-white break-words"
+          className="mb-10 font-semibold leading-tight tracking-tight
+                       text-4xl md:text-5xl
+                       text-white"
         >
-          Let&apos;s&nbsp;create&nbsp;your
-          <br className="hidden sm:block" />
-          next&nbsp;big&nbsp;idea.
+          Let&apos;s create your
+          <br />
+          next big idea.
         </h2>
 
         {/* CTA button */}
         <Link
           href="/contact"
-          className="inline-block rounded-full border border-white/30
-                     px-8 sm:px-12 py-3 sm:py-4 text-base sm:text-lg font-medium
-                     text-white transition-colors
-                     hover:border-white/70 hover:bg-white/5"
+          className="inline-block 
+                     px-8 py-3 text-base font-medium"
         >
-          Contact&nbsp;Me
+          <ShinyButton
+            initialText="Contact Me"
+            hoverText="Contact Me"
+            className="flex items-center gap-2" // You can still add custom classes
+          >
+            {/* This demonstrates how children could be added, though the current text prop is simpler */}
+          </ShinyButton>
         </Link>
       </motion.div>
     </section>

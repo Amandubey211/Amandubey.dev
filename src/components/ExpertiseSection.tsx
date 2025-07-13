@@ -5,7 +5,6 @@ import {
   Sparkles,
   Code2,
   PenTool,
-  BadgePercent,
   Database,
   Server,
   Atom,
@@ -25,24 +24,24 @@ import { TechStackSlider } from "./TechStackSlider";
 
 const items = [
   {
-    title: "Development",
-    body: "Building performant, scalable web apps with React, Next.js & Node.",
+    title: "Frontend Development",
+    body: "Building secure, high-performance, and scalable web applications using React, Next.js, and TypeScript with a focus on optimization and intuitive user experiences.",
     icon: <Code2 className="w-5 h-5 text-lime-400 mr-2" />,
   },
   {
-    title: "UI/UX Design",
-    body: "Design systems, wireframes & delightful user interfaces.",
+    title: "Backend Development",
+    body: "Developing robust server-side applications and RESTful APIs with Node.js, Express, and databases like MongoDB & SQL, ensuring security and scalability.",
+    icon: <Server className="w-5 h-5 text-lime-400 mr-2" />,
+  },
+  {
+    title: "UI/UX & Design Systems",
+    body: "Designing intuitive user interfaces and creating reusable component libraries with tools like Tailwind CSS, Material UI, and Figma to accelerate development.",
     icon: <PenTool className="w-5 h-5 text-lime-400 mr-2" />,
   },
   {
-    title: "Branding",
-    body: "Creating memorable brand identities & visual languages.",
-    icon: <BadgePercent className="w-5 h-5 text-lime-400 mr-2" />,
-  },
-  {
-    title: "DevOps & Deployment",
-    body: "Implementing CI/CD pipelines, containerization with Docker, and cloud deployment strategies.",
-    icon: <Server className="w-5 h-5 text-lime-400 mr-2" />,
+    title: "Testing & Deployment",
+    body: "Automating testing and deployment workflows using CI/CD pipelines with GitHub Actions, Jest, and deploying on platforms like AWS, Vercel, and Netlify.",
+    icon: <CircuitBoard className="w-5 h-5 text-lime-400 mr-2" />,
   },
 ];
 
@@ -50,11 +49,11 @@ const techStack = [
   { name: "TypeScript", icon: <FileJson className="w-4 h-4 mr-2" /> },
   { name: "React.js", icon: <Atom className="w-4 h-4 mr-2" /> },
   { name: "Next.js", icon: <Sigma className="w-4 h-4 mr-2" /> },
-  { name: "Angular", icon: <Braces className="w-4 h-4 mr-2" /> },
-  { name: "Redux", icon: <Box className="w-4 h-4 mr-2" /> },
   { name: "Node.js", icon: <Server className="w-4 h-4 mr-2" /> },
+  { name: "Redux", icon: <Box className="w-4 h-4 mr-2" /> },
   { name: "Express.js", icon: <CircuitBoard className="w-4 h-4 mr-2" /> },
-  { name: "MySQL", icon: <Database className="w-4 h-4 mr-2" /> },
+  { name: "MongoDB", icon: <Database className="w-4 h-4 mr-2" /> },
+  { name: "Tailwind CSS", icon: <Braces className="w-4 h-4 mr-2" /> },
 ];
 
 export function ExpertiseSection() {
@@ -90,19 +89,19 @@ export function ExpertiseSection() {
           {items.map((it, idx) => (
             <div
               key={it.title}
-              className="bg-white/5 rounded-2xl overflow-hidden"
+              className="bg-white/5 rounded-2xl overflow-hidden "
             >
               <button
                 onClick={() => setOpen(open === idx ? null : idx)}
-                className="flex w-full items-center justify-between p-6 text-lg font-medium text-white"
+                className="flex cursor-pointer w-full items-center justify-between p-6 text-lg font-medium text-white"
               >
-                <div className="flex items-center">
+                <div className="flex items-center ">
                   {it.icon}
                   {it.title}
                 </div>
                 <ChevronDown
                   className={clsx(
-                    "transition-transform duration-300",
+                    "transition-transform duration-300 ",
                     open === idx && "rotate-180 text-lime-400"
                   )}
                 />

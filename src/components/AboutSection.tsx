@@ -6,7 +6,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 export function AboutSection() {
   return (
-    <section id="about" className="max-w-5xl mx-auto px-6 md:px-8 py-32">
+    <section id="about" className="max-w-5xl mx-auto px-6 md:px-8 py-16">
       {/* small heading */}
       <motion.h2
         initial={{ opacity: 0, y: 20 }}

@@ -1,4 +1,3 @@
-/* src/app/layout.tsx */
 import "@fontsource/inter";
 import "./globals.css";
 import { NavBar } from "@/components/NavBar";
