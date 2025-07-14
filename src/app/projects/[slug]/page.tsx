@@ -1,82 +1,146 @@
-/* app/projects/[slug]/page.tsx
-   ───────────────────────────────────────────────────────────── */
-import { Metadata } from "next";
+// app/projects/[slug]/page.tsx
+
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 import { allProjects } from "@/lib/projectdata";
+import type { Project } from "@/lib/projectdata";
 
-/* ── route config ── */
-export const dynamic = "error";
-export const revalidate = 0; // never re-validate (fully static)
-
-/* ── shared types ── */
-type StaticParams = { slug: string };
-type PageProps = { params: Promise<StaticParams> }; // ← key: Promise!
-
-/* ── static paths ── */
-export async function generateStaticParams(): Promise<StaticParams[]> {
-  return allProjects.map(({ slug }) => ({ slug }));
+// This helper function is synchronous and correct.
+function getProjectBySlug(slug: string): Project | undefined {
+  return allProjects.find((p) => p.slug === slug);
 }
 
-/* ── metadata ── */
+// NOTE: We do not need a custom props type.
+
+export async function generateStaticParams() {
+  return allProjects.map((project) => ({
+    slug: project.slug,
+  }));
+}
+
+// --- METADATA GENERATION ---
+// The function remains async, as required by Next.js.
 export async function generateMetadata({
   params,
-}: PageProps): Promise<Metadata> {
-  const { slug } = await params; // await once
-  const project = allProjects.find((p) => p.slug === slug);
-  if (!project) notFound();
+}: {
+  params: Promise<{ slug: string }>; // The type system expects a Promise here
+}): Promise<Metadata> {
+  // KEY FIX: Await the params object itself to resolve the Promise.
+  const resolvedParams = await params;
+  const project = getProjectBySlug(resolvedParams.slug);
+
+  if (!project) {
+    return { title: "Project Not Found" };
+  }
+
+  const imageUrl =
+    typeof project.coverImage === "string"
+      ? project.coverImage
+      : project.coverImage.src;
 
   return {
     title: `${project.title} — Case Study`,
     description: project.description,
     openGraph: {
-      title: project.title,
+      title: `${project.title} — Aman Dubey`,
       description: project.description,
-      images: [{ url: project.cover, width: 1200, height: 630 }],
+      images: [{ url: imageUrl, width: 1200, height: 630 }],
     },
   };
 }
 
-/* ── page ── */
-export default async function ProjectPage({ params }: PageProps) {
-  const { slug } = await params;
-  const project = allProjects.find((p) => p.slug === slug);
-  if (!project) notFound();
+// --- PAGE COMPONENT ---
+// The page component is async.
+export default async function ProjectPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>; // The type system expects a Promise here
+}) {
+  // KEY FIX: We apply the exact same pattern here.
+  const resolvedParams = await params;
+  const project = getProjectBySlug(resolvedParams.slug);
 
+  if (!project) {
+    notFound();
+  }
+
+  // The UI logic below is completely unchanged.
   return (
-    <article className="mx-auto max-w-3xl pb-16 lg:pb-24">
-      <header className="mb-12 space-y-6">
-        <h1 className="text-4xl font-bold tracking-tight">{project.title}</h1>
-        <p className="text-muted-foreground">
-          {project.year} · {project.role}
-        </p>
+    <main className="min-h-screen  py-24 text-white">
+      <article className="mx-auto max-w-4xl px-4">
+        <header className="mb-12">
+          <p className="mb-2 font-bold tracking-widest text-lime-400">
+            CASE STUDY
+          </p>
+          <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-white lg:text-6xl">
+            {project.title}
+          </h1>
+          <p className="text-lg text-gray-400">
+            {project.year} · {project.role}
+          </p>
+          <div className="mt-8 flex flex-wrap gap-4">
+            {project.liveUrl && (
+              <Link
+                href={project.liveUrl}
+                target="_blank"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-black transition hover:bg-gray-200"
+              >
+                Live Demo <ExternalLink size={16} />
+              </Link>
+            )}
+            {project.githubUrl && (
+              <Link
+                href={project.githubUrl}
+                target="_blank"
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2 text-sm font-semibold text-white transition hover:bg-white/5"
+              >
+                View Code
+              </Link>
+            )}
+          </div>
+        </header>
         <Image
-          src={project.cover}
-          alt={`Screenshot of ${project.title}`}
+          src={project.coverImage}
+          alt={`Showcase of ${project.title}`}
           width={1280}
           height={720}
           priority
-          className="rounded-lg border shadow-md"
+          className="mb-16 rounded-2xl border border-white/10 shadow-2xl"
         />
-      </header>
-
-      <section className="prose prose-invert">
-        <p>{project.description}</p>
-      </section>
-
-      <footer className="mt-12">
-        <h2 className="mb-4 text-xl font-semibold">Tech stack</h2>
-        <ul className="flex flex-wrap gap-2 text-sm">
-          {project.stack.map((tech) => (
-            <li
-              key={tech}
-              className="whitespace-nowrap rounded border bg-muted/20 px-2 py-1"
-            >
-              {tech}
-            </li>
-          ))}
-        </ul>
-      </footer>
-    </article>
+        <div className="prose prose-invert prose-lg max-w-none">
+          <h2>About the Project</h2>
+          <p>{project.description}</p>
+        </div>
+        <footer className="mt-16 border-t border-white/10 pt-10">
+          <div className="mb-8">
+            <h2 className="mb-4 text-xl font-semibold">Categories</h2>
+            <ul className="flex flex-wrap gap-3">
+              {project.categories.map((category) => (
+                <li
+                  key={category}
+                  className="whitespace-nowrap rounded-full bg-white/5 px-4 py-1.5 text-sm text-gray-200"
+                >
+                  {category}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <h2 className="mb-4 text-xl font-semibold">Tech Stack</h2>
+          <ul className="flex flex-wrap gap-3">
+            {project.techStack.map((tech) => (
+              <li
+                key={tech}
+                className="whitespace-nowrap rounded-full bg-white/5 px-4 py-1.5 text-sm text-gray-200"
+              >
+                {tech}
+              </li>
+            ))}
+          </ul>
+        </footer>
+      </article>
+    </main>
   );
 }
