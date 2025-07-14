@@ -15,7 +15,7 @@ export default function AboutPage() {
   return (
     // Use a consistent dark background for the entire page
     <main className=" text-white">
-      <div className="relative max-w-7xl mx-auto px-6 md:px-12 pt-28 pb-32">
+      <div className="relative max-w-4xl mx-auto px-6 md:px-6 py-12 ">
         {/* Each section is now its own component */}
         <AboutHero />
         <div className="py-5 ">

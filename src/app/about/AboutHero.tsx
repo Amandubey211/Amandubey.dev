@@ -5,15 +5,82 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import clsx from "clsx";
 import Aman from "@/assets/about/Amanimage.jpeg";
 
-/* helper for circular text */
+// Helper for circular text
 const text = " • LET’S TALK • LET’S TALK ";
 const radius = 110;
 
+// --- ShinyButton's visual logic adapted for an <a> tag ---
+function ShinyDownloadButton({
+  initialText,
+  hoverText,
+}: {
+  initialText: string;
+  hoverText: string;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const textVariants = {
+    initial: { y: 0 },
+    hover: { y: "-125%" },
+  };
+
+  const hoverTextVariants = {
+    initial: { y: "125%" },
+    hover: { y: 0 },
+  };
+
+  return (
+    <motion.a
+      href="/AmanDubeyFullStackDeveloper2+YOE.pdf" // Path to the file in the `public` folder
+      download="Aman-Dubey-Resume.pdf" // Suggested download filename
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={clsx(
+        "relative inline-block overflow-hidden cursor-pointer rounded-full border border-white/30",
+        "px-8 py-3 text-lg font-medium",
+        "transition-colors duration-300",
+        isHovered ? "text-black" : "text-white"
+      )}
+      style={{ transform: "translateZ(0)" }}
+    >
+      <span className="relative block h-7 w-52 text-center">
+        <motion.span
+          className="absolute inset-x-0"
+          variants={textVariants}
+          initial="initial"
+          animate={isHovered ? "hover" : "initial"}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          {initialText}
+        </motion.span>
+        <motion.span
+          className="absolute inset-x-0"
+          variants={hoverTextVariants}
+          initial="initial"
+          animate={isHovered ? "hover" : "initial"}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          {hoverText}
+        </motion.span>
+      </span>
+
+      <motion.div
+        className="absolute inset-0 z-[-1] bg-white"
+        initial={{ y: "100%" }}
+        animate={{ y: isHovered ? "0%" : "100%" }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      />
+    </motion.a>
+  );
+}
+
 export default function AboutHero() {
   return (
-    <div className="grid md:grid-cols-2 gap-16 items-center">
+    <div className="grid md:grid-cols-2 gap-10 items-center">
       {/* photo + CTA */}
       <div className="relative flex justify-center md:justify-end">
         <Image
@@ -75,7 +142,7 @@ export default function AboutHero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: "easeOut" }}
       >
-        <h1 className="font-bold leading-[0.88] text-[clamp(2rem,7.3vw,5.2rem)]">
+        <h1 className="font-bold leading-[0.88] text-[clamp(1.5rem,5.3vw,4.2rem)]">
           A <span className="text-lime-400">creative</span>
           <br /> developer &
           <br />
@@ -88,15 +155,12 @@ export default function AboutHero() {
           goals.
         </p>
 
-        {/* --- KEY CHANGE: Updated Resume Link --- */}
-        <Link
-          href="https://docs.google.com/document/d/1CdB-RPXp6hxngGIV4Nks6Iy_agbW5fvdkNghAYQKSXk/edit?usp=sharing"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block mt-10 rounded-full border border-white/50 px-10 py-4 font-medium text-white hover:bg-white hover:text-black transition-colors"
-        >
-          View My Resume
-        </Link>
+        <div className="mt-10">
+          <ShinyDownloadButton
+            initialText="Download Resume"
+            hoverText="Download Now"
+          />
+        </div>
       </motion.div>
     </div>
   );
