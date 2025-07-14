@@ -107,7 +107,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 I'm always open to connecting with other developers, discussing new technologies, or exploring potential opportunities.
 
 <p>
-  <a href="https://www.linkedin.com/in/amandubey211/" target="_blank">
+  <a href="https://www.linkedin.com/in/profile-amandubey/" target="_blank">
     <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
   </a>
   <a href="mailto:amandubey8833@gmail.com">
