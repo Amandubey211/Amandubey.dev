@@ -8,17 +8,12 @@ import { ExternalLink } from "lucide-react";
 import { allProjects } from "@/lib/projectdata";
 import type { Project } from "@/lib/projectdata";
 
-// This helper function is synchronous, which is correct since Array.find is not async.
+// This helper function is synchronous and correct.
 function getProjectBySlug(slug: string): Project | undefined {
   return allProjects.find((p) => p.slug === slug);
 }
 
-// Define the shape of the page props.
-type ProjectPageProps = {
-  params: {
-    slug: string;
-  };
-};
+// NOTE: We do not need a custom props type.
 
 export async function generateStaticParams() {
   return allProjects.map((project) => ({
@@ -27,13 +22,15 @@ export async function generateStaticParams() {
 }
 
 // --- METADATA GENERATION ---
-// KEY CHANGE: De-structure `{ slug }` directly from `params` in the signature.
-// This is the officially required pattern.
+// The function remains async, as required by Next.js.
 export async function generateMetadata({
-  params: { slug },
-}: ProjectPageProps): Promise<Metadata> {
-  // Now, use the 'slug' variable directly. The compiler will no longer complain.
-  const project = getProjectBySlug(slug);
+  params,
+}: {
+  params: Promise<{ slug: string }>; // The type system expects a Promise here
+}): Promise<Metadata> {
+  // KEY FIX: Await the params object itself to resolve the Promise.
+  const resolvedParams = await params;
+  const project = getProjectBySlug(resolvedParams.slug);
 
   if (!project) {
     return { title: "Project Not Found" };
@@ -56,12 +53,15 @@ export async function generateMetadata({
 }
 
 // --- PAGE COMPONENT ---
-// KEY CHANGE: Also de-structure `{ slug }` in the page component's signature.
+// The page component is async.
 export default async function ProjectPage({
-  params: { slug },
-}: ProjectPageProps) {
-  // Use the 'slug' variable directly.
-  const project = getProjectBySlug(slug);
+  params,
+}: {
+  params: Promise<{ slug: string }>; // The type system expects a Promise here
+}) {
+  // KEY FIX: We apply the exact same pattern here.
+  const resolvedParams = await params;
+  const project = getProjectBySlug(resolvedParams.slug);
 
   if (!project) {
     notFound();
@@ -69,7 +69,7 @@ export default async function ProjectPage({
 
   // The UI logic below is completely unchanged.
   return (
-    <main className="min-h-screen bg-[#111111] py-24 text-white">
+    <main className="min-h-screen  py-24 text-white">
       <article className="mx-auto max-w-4xl px-4">
         <header className="mb-12">
           <p className="mb-2 font-bold tracking-widest text-lime-400">
