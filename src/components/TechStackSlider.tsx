@@ -2,14 +2,32 @@
 
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
-
+import {
+  Database,
+  Server,
+  Atom,
+  Sigma,
+  Braces,
+  FileJson,
+  Box,
+  CircuitBoard,
+} from "lucide-react";
+const items = [
+  { name: "TypeScript", icon: <FileJson className="w-4 h-4 mr-2" /> },
+  { name: "React.js", icon: <Atom className="w-4 h-4 mr-2" /> },
+  { name: "Next.js", icon: <Sigma className="w-4 h-4 mr-2" /> },
+  { name: "Node.js", icon: <Server className="w-4 h-4 mr-2" /> },
+  { name: "Redux", icon: <Box className="w-4 h-4 mr-2" /> },
+  { name: "Express.js", icon: <CircuitBoard className="w-4 h-4 mr-2" /> },
+  { name: "MongoDB", icon: <Database className="w-4 h-4 mr-2" /> },
+  { name: "Tailwind CSS", icon: <Braces className="w-4 h-4 mr-2" /> },
+];
 export type TechItem = {
   name: string;
   icon?: React.ReactNode;
 };
 
 type TechStackSliderProps = {
-  items: TechItem[];
   speed?: number; // seconds for full loop
   direction?: "left" | "right";
   className?: string;
@@ -17,7 +35,6 @@ type TechStackSliderProps = {
 };
 
 export function TechStackSlider({
-  items,
   speed = 20,
   direction = "left",
   className = "",

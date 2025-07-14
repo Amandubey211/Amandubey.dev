@@ -50,7 +50,7 @@ export default async function ProjectPage({
 
   // The UI below is correct and unchanged.
   return (
-    <div className="bg-[#1C1C1C] text-white min-h-screen">
+    <div className=" text-white min-h-screen">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* --- Top Header --- */}
         <header className="flex justify-between items-center mb-8">
