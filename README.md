@@ -24,7 +24,7 @@
 
 <p align="center">
   <a href="https://amandubey.vercel.app/" target="_blank">
-    <img src="https://i.imgur.com/uR1G5aB.png" alt="A screenshot of the portfolio homepage showing a staggered grid of projects with a dark theme." />
+    <img src="https://i.ibb.co/0yrbzpy7/Screenshot-87.png" alt="A screenshot of the portfolio homepage showing a staggered grid of projects with a dark theme." />
   </a>
 </p>
 
