@@ -66,7 +66,7 @@ export function TestimonialsSection() {
     isLongQuote && !isExpanded ? `${t.quote.slice(0, 250)}...` : t.quote;
 
   return (
-    <section id="testimonials" className="max-w-7xl mx-auto px-6 md:px-8 py-32">
+    <section id="testimonials" className="max-w-7xl mx-auto px-6 md:px-8 ">
       <div className="grid md:grid-cols-12 gap-y-12 md:gap-x-12 items-start">
         {/* LEFT COLUMN — 5/12 */}
         <div className="md:col-span-5">

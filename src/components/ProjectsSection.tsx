@@ -1,80 +1,76 @@
-/* eslint react/no-unescaped-entities: "error" */
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-
-import { projects } from "@/lib/projects";
+import { Sparkles } from "lucide-react";
+import { allProjects } from "@/lib/projectdata";
+import { ShinyButton } from "./ShinyButton";
 
 export function ProjectsSection() {
+  const featuredProjects = allProjects.filter((project) => project.isFeatured);
+
   return (
-    <section id="projects" className="mx-auto max-w-7xl px-6 md:px-18 py-16">
-      {/* heading */}
+    <section id="projects" className="mx-auto max-w-7xl px-6 md:px-8 py-28">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="mb-6 flex items-center gap-2 text-lime-400 tracking-wider"
+        className="mb-4 flex items-center gap-2 text-lime-400 font-bold tracking-widest"
       >
-        ✨ MY WORK
+        <Sparkles size={20} strokeWidth={2} /> MY WORK
       </motion.h2>
-
       <motion.h3
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="mb-4 text-4xl md:text-5xl font-bold"
+        className="mb-4 text-4xl md:text-5xl font-bold leading-tight"
       >
         Selected Projects
       </motion.h3>
-
-      <p className="mb-14 max-w-lg text-gray-400">
-        Here<span className="sr-only"> is</span>&apos;s&nbsp;a curated selection
-        showcasing my expertise and&nbsp;the achieved results.
+      <p className="mb-14 max-w-lg text-gray-400 text-lg">
+        Here's a curated selection showcasing my expertise and the results I've
+        achieved.
       </p>
-
-      {/* project grid */}
-      <div className="grid gap-14 md:grid-cols-2">
-        {projects.map(({ slug, title, img, year, role, bg }) => (
+      <div className="grid gap-x-8 gap-y-14 md:grid-cols-2">
+        {featuredProjects.map((project) => (
           <motion.article
-            key={slug}
+            key={project.slug}
             whileHover={{ y: -6 }}
             transition={{ type: "spring", stiffness: 220, damping: 22 }}
-            className="space-y-4"
+            className="flex flex-col"
           >
             <Link
-              href={`/projects/${slug}`}
-              className={`block overflow-hidden rounded-3xl shadow-xl ${bg}`}
+              href={`/projects/${project.slug}`}
+              className="block overflow-hidden rounded-3xl shadow-xl bg-gray-900/50 border border-white/10"
             >
               <Image
-                placeholder="blur"
-                blurDataURL="https://amandubey.onrender.com/static/media/ProDash.88473c0881bc86b59751.png"
-                src={img}
-                alt={title}
+                src={project.coverImage}
+                alt={`Cover image for ${project.title}`}
                 width={900}
                 height={600}
-                className="h-auto w-full scale-[1.02] object-cover transition-transform duration-700 hover:scale-100"
+                className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 priority
               />
             </Link>
-
-            <h4 className="text-xl font-semibold">{title}</h4>
-            <p className="text-gray-500">{role}</p>
-            <span className="text-sm text-gray-500">{year}</span>
+            <div className="mt-5">
+              <h4 className="text-xl font-semibold text-white">
+                {project.title}
+              </h4>
+              <p className="text-gray-400 mt-1">{project.role}</p>
+            </div>
           </motion.article>
         ))}
       </div>
-
-      {/* CTA */}
       <div className="mt-20 flex justify-center">
-        <Link
-          href="/projects"
-          className="rounded-full border border-white/40 px-8 py-3 transition hover:border-white"
-        >
-          View&nbsp;All&nbsp;Projects
+        <Link href="/projects" className="rounded-full  ">
+          <ShinyButton
+            initialText="View All Projects"
+            hoverText="View All Projects"
+          />
         </Link>
       </div>
     </section>

@@ -6,15 +6,6 @@ const nextConfig: NextConfig = {
     // ↓ pick ONE of these two options
     /* 1. simple */
     domains: ["images.unsplash.com", "amandubey.onrender.com"],
-
-    /* 2. fine-grained – if you prefer remotePatterns */
-    /* remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'source.unsplash.com',
-        pathname: '/**',     // accept any path
-      },
-    ], */
   },
 };
 
