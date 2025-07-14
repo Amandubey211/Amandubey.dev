@@ -1,17 +1,10 @@
 "use client";
-
 import {
   ChevronDown,
   Sparkles,
   Code2,
   PenTool,
-  Database,
   Server,
-  Atom,
-  Sigma,
-  Braces,
-  FileJson,
-  Box,
   CircuitBoard,
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
@@ -43,17 +36,6 @@ const items = [
     body: "Automating testing and deployment workflows using CI/CD pipelines with GitHub Actions, Jest, and deploying on platforms like AWS, Vercel, and Netlify.",
     icon: <CircuitBoard className="w-5 h-5 text-lime-400 mr-2" />,
   },
-];
-
-const techStack = [
-  { name: "TypeScript", icon: <FileJson className="w-4 h-4 mr-2" /> },
-  { name: "React.js", icon: <Atom className="w-4 h-4 mr-2" /> },
-  { name: "Next.js", icon: <Sigma className="w-4 h-4 mr-2" /> },
-  { name: "Node.js", icon: <Server className="w-4 h-4 mr-2" /> },
-  { name: "Redux", icon: <Box className="w-4 h-4 mr-2" /> },
-  { name: "Express.js", icon: <CircuitBoard className="w-4 h-4 mr-2" /> },
-  { name: "MongoDB", icon: <Database className="w-4 h-4 mr-2" /> },
-  { name: "Tailwind CSS", icon: <Braces className="w-4 h-4 mr-2" /> },
 ];
 
 export function ExpertiseSection() {
@@ -135,7 +117,6 @@ export function ExpertiseSection() {
 
       {/* Tech Stack Slider */}
       <TechStackSlider
-        items={techStack}
         speed={20}
         direction="left"
         className="mt-12"
