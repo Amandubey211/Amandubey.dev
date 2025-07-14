@@ -4,16 +4,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
-import { allProjects } from "@/lib/projectdata";
-import type { Project } from "@/lib/projectdata";
-
-// This helper function is synchronous and correct.
-function getProjectBySlug(slug: string): Project | undefined {
-  return allProjects.find((p) => p.slug === slug);
-}
-
-// NOTE: We do not need a custom props type.
+import { ArrowLeft } from "lucide-react";
+import { allProjects, getProjectBySlug } from "@/lib/projectdata"; // Make sure getProjectBySlug is exported
 
 export async function generateStaticParams() {
   return allProjects.map((project) => ({
@@ -21,45 +13,34 @@ export async function generateStaticParams() {
   }));
 }
 
-// --- METADATA GENERATION ---
-// The function remains async, as required by Next.js.
+// --- METADATA GENERATION (Corrected Logic) ---
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>; // The type system expects a Promise here
+  // Tell TypeScript that params is a Promise that will resolve to our object
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  // KEY FIX: Await the params object itself to resolve the Promise.
+  // KEY FIX: Await the params object to get the resolved value.
   const resolvedParams = await params;
   const project = getProjectBySlug(resolvedParams.slug);
 
   if (!project) {
     return { title: "Project Not Found" };
   }
-
-  const imageUrl =
-    typeof project.coverImage === "string"
-      ? project.coverImage
-      : project.coverImage.src;
-
   return {
-    title: `${project.title} — Case Study`,
-    description: project.description,
-    openGraph: {
-      title: `${project.title} — Aman Dubey`,
-      description: project.description,
-      images: [{ url: imageUrl, width: 1200, height: 630 }],
-    },
+    title: `${project.title} | Case Study`,
+    description: project.overview,
   };
 }
 
-// --- PAGE COMPONENT ---
-// The page component is async.
+// --- PAGE COMPONENT (Corrected Logic) ---
 export default async function ProjectPage({
   params,
 }: {
-  params: Promise<{ slug: string }>; // The type system expects a Promise here
+  // Apply the same correct type here
+  params: Promise<{ slug: string }>;
 }) {
-  // KEY FIX: We apply the exact same pattern here.
+  // KEY FIX: Await the params object here as well.
   const resolvedParams = await params;
   const project = getProjectBySlug(resolvedParams.slug);
 
@@ -67,80 +48,136 @@ export default async function ProjectPage({
     notFound();
   }
 
-  // The UI logic below is completely unchanged.
+  // The UI below is correct and unchanged.
   return (
-    <main className="min-h-screen  py-24 text-white">
-      <article className="mx-auto max-w-4xl px-4">
-        <header className="mb-12">
-          <p className="mb-2 font-bold tracking-widest text-lime-400">
-            CASE STUDY
-          </p>
-          <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-white lg:text-6xl">
-            {project.title}
-          </h1>
-          <p className="text-lg text-gray-400">
-            {project.year} · {project.role}
-          </p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            {project.liveUrl && (
-              <Link
-                href={project.liveUrl}
-                target="_blank"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-black transition hover:bg-gray-200"
-              >
-                Live Demo <ExternalLink size={16} />
-              </Link>
-            )}
-            {project.githubUrl && (
-              <Link
-                href={project.githubUrl}
-                target="_blank"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2 text-sm font-semibold text-white transition hover:bg-white/5"
-              >
-                View Code
-              </Link>
-            )}
-          </div>
+    <div className="bg-[#1C1C1C] text-white min-h-screen">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* --- Top Header --- */}
+        <header className="flex justify-between items-center mb-8">
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+          >
+            <ArrowLeft size={18} />
+            Back to Projects
+          </Link>
+          <span className="text-gray-400 font-mono text-lg">
+            {project.year}
+          </span>
         </header>
-        <Image
-          src={project.coverImage}
-          alt={`Showcase of ${project.title}`}
-          width={1280}
-          height={720}
-          priority
-          className="mb-16 rounded-2xl border border-white/10 shadow-2xl"
-        />
-        <div className="prose prose-invert prose-lg max-w-none">
-          <h2>About the Project</h2>
-          <p>{project.description}</p>
-        </div>
-        <footer className="mt-16 border-t border-white/10 pt-10">
-          <div className="mb-8">
-            <h2 className="mb-4 text-xl font-semibold">Categories</h2>
-            <ul className="flex flex-wrap gap-3">
-              {project.categories.map((category) => (
-                <li
-                  key={category}
-                  className="whitespace-nowrap rounded-full bg-white/5 px-4 py-1.5 text-sm text-gray-200"
+
+        {/* --- Hero Image --- */}
+        <section className="mb-12">
+          <Image
+            src={project.coverImage}
+            alt={`Showcase of ${project.title}`}
+            width={1920}
+            height={1080}
+            priority
+            className="rounded-lg object-cover w-full h-auto max-h-[500px]"
+          />
+        </section>
+
+        <article>
+          {/* --- Main Info Section --- */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-12">
+            <div className="md:col-span-2">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                {project.title}
+              </h1>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                {project.description}
+              </p>
+            </div>
+            <div className="flex flex-col gap-4">
+              {project.liveUrl && (
+                <Link
+                  href={project.liveUrl}
+                  target="_blank"
+                  className="w-full text-center bg-white text-black font-semibold py-3 px-6 rounded-full border border-gray-600 hover:bg-gray-200 transition-colors"
                 >
-                  {category}
-                </li>
-              ))}
-            </ul>
+                  Check it out
+                </Link>
+              )}
+              <div className="space-y-2">
+                <p>
+                  <span className="text-gray-400">Roles:</span> {project.role}
+                </p>
+                <p>
+                  <span className="text-gray-400">Client:</span>{" "}
+                  {project.client}
+                </p>
+              </div>
+            </div>
           </div>
-          <h2 className="mb-4 text-xl font-semibold">Tech Stack</h2>
-          <ul className="flex flex-wrap gap-3">
+
+          {/* --- Tech Stack Pills --- */}
+          <div className="flex flex-wrap gap-3 mb-16">
             {project.techStack.map((tech) => (
-              <li
+              <span
                 key={tech}
-                className="whitespace-nowrap rounded-full bg-white/5 px-4 py-1.5 text-sm text-gray-200"
+                className="bg-gray-800 text-gray-300 px-4 py-2 rounded-full text-sm"
               >
                 {tech}
-              </li>
+              </span>
             ))}
-          </ul>
-        </footer>
-      </article>
-    </main>
+          </div>
+
+          {/* --- Overview Section --- */}
+          <section className="mb-16 prose prose-invert prose-lg max-w-none">
+            <h2>Overview</h2>
+            <p>{project.overview}</p>
+          </section>
+
+          {/* --- Design Screens Section --- */}
+          {project.designScreens && project.designScreens.length > 0 && (
+            <section className="mb-16">
+              <h2 className="text-3xl font-bold mb-6">Design Screens</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {project.designScreens.map((screen, index) => (
+                  <Image
+                    key={index}
+                    src={screen}
+                    alt={`Design screen ${index + 1}`}
+                    width={800}
+                    height={600}
+                    className="rounded-lg object-cover w-full h-auto"
+                  />
+                ))}
+              </div>
+            </section>
+          )}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+            {/* --- Tech Stack List Section --- */}
+            <section>
+              <h2 className="text-3xl font-bold mb-6">Tech Stack</h2>
+              <ul className="list-disc list-inside space-y-2 text-gray-300">
+                {project.techStack.map((tech) => (
+                  <li key={tech}>{tech}</li>
+                ))}
+              </ul>
+            </section>
+
+            {/* --- Features Section --- */}
+            {project.features && project.features.length > 0 && (
+              <section>
+                <h2 className="text-3xl font-bold mb-6">Features</h2>
+                <ul className="space-y-4 text-gray-300">
+                  {project.features.map((feature) => (
+                    <li key={feature.title}>
+                      <strong className="block text-white">
+                        {feature.title}
+                      </strong>
+                      {feature.description}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+          </div>
+        </article>
+      </div>
+    </div>
   );
 }
