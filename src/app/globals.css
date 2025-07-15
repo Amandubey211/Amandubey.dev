@@ -1,32 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --selection-color: #9ae600; /* Added your brand color as variable */
+  /* --- KEY CHANGE --- */
+  /* We are hardcoding the dark mode variables directly. */
+  /* The browser will no longer check the system's theme. */
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --selection-color: #a3ff4e; /* Your brand color */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --selection-color: #9ae600; /* Keep the same in dark mode or adjust if needed */
-  }
-}
-
-/* Text selection styling */
+/* Text selection styling using the variable */
 ::selection {
   background: var(--selection-color);
-  color: #000; /* Black text for better contrast on bright green */
+  color: #000;
 }
-
 ::-moz-selection {
   background: var(--selection-color);
   color: #000;
@@ -35,14 +22,13 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Helvetica, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-/* app/nprogress-custom.css */
+/* Your NProgress and SVG styles remain untouched */
 #nprogress {
   pointer-events: none;
 }
@@ -51,12 +37,10 @@ html {
   height: 3px;
   z-index: 9999 !important;
 }
-
 #nprogress .peg {
   box-shadow: 0 0 8px #a3ff4e, 0 0 5px #a3ff4e;
 }
 
-/* tailwind layer or plain file */
 svg text {
   font-family: var(--font-geist-sans, Inter, sans-serif);
   font-size: 12px;
