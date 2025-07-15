@@ -5,7 +5,7 @@ import FormaFlow from "@/assets/Projects/FormaFlow.png";
 import PortfolioOR from "@/assets/Projects/PortfolioOR.png";
 import StudentDiwanLMS from "@/assets/Projects/StudentDiwanLMS.png";
 import Xpert from "@/assets/Projects/Xpert.png";
-
+import BizFindCover from "@/assets/Projects/BixFind.png";
 // --- The new, richer Project type ---
 export type Project = {
   slug: string;
@@ -107,6 +107,50 @@ export const allProjects: Project[] = [
     categories: ["Development"],
     isFeatured: true,
     bgColor: "bg-teal-50",
+  },
+  {
+    slug: "biz-find-directory",
+    title: "BizFind - Business Directory",
+    coverImage: BizFindCover, // <-- Make sure to import this
+    year: 2024,
+    role: "Full-Stack Developer",
+    client: "List India (Take-Home Assignment)",
+    categories: ["Development", "Design"],
+    description:
+      "A responsive business directory website built from the ground up in under 4 hours to meet a 24-hour challenge deadline.",
+    overview:
+      "This project was a personal 'speedrun' to deliver a production-ready, full-stack application. It showcases a modern development workflow, from building and deploying a serverless Node.js API to scaffolding a responsive React frontend with fluid animations. The focus was on rapid, high-quality execution under pressure, demonstrating strategic planning and command of a modern tech stack.",
+    techStack: [
+      "React",
+      "Vite",
+      "Node.js",
+      "Express.js",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Vercel",
+      "Monorepo",
+    ],
+    features: [
+      {
+        title: "Rapid Prototyping (4-Hour Execution)",
+        description:
+          "The entire application was planned, built, and deployed in under 4 hours, showcasing efficient execution and time management.",
+      },
+      {
+        title: "Live Client-Side Search & Pagination",
+        description:
+          "Implemented a fast and responsive UI for filtering and navigating through 50+ business listings without page reloads.",
+      },
+      {
+        title: "Full-Stack Monorepo on Vercel",
+        description:
+          "The React frontend and Node.js serverless backend are managed in a single GitHub monorepo and deployed to Vercel for a streamlined CI/CD pipeline.",
+      },
+    ],
+    liveUrl: "https://biz-find.vercel.app/",
+    githubUrl: "https://github.com/Amandubey211/BizFind",
+    isFeatured: true,
+    bgColor: "bg-emerald-50",
   },
   {
     slug: "formaflow-builder",
