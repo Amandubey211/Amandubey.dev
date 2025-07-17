@@ -167,7 +167,7 @@ export default function AboutHero() {
           goals.
         </p>
 
-        <div className="mt-10">
+        <div className="mt-9">
           <ShinyDownloadButton
             initialText="Download Resume"
             hoverText="Download Now"
