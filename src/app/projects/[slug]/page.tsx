@@ -55,7 +55,7 @@ export default async function ProjectPage({
         {/* --- Top Header --- */}
         <header className="flex justify-between items-center mb-8">
           <Link
-            href="/"
+            href="/projects"
             className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
           >
             <ArrowLeft size={18} />
