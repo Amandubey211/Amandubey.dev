@@ -24,7 +24,10 @@ function ShinyDownloadButton({
 
   // --- KEY CHANGE: Read the URL from the environment variable ---
   // We include a fallback just in case the variable is not set.
-  const resumeUrl = process.env.NEXT_PUBLIC_RESUME_URL || "#";
+  const resumeUrl =
+    process.env.NEXT_PUBLIC_RESUME_URL ||
+    "https://drive.google.com/uc?export=download&id=1Uu8Tromaetan4Zotsg2Y-DOqYQiKq4rm" ||
+    "/AmanDubeyFullStackDeveloper2+YOE.pdf";
 
   if (resumeUrl === "#") {
     console.warn(
