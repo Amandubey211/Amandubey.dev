@@ -62,9 +62,9 @@ export function TechStackSlider({
     );
 
     return () => {
-      tween.kill(); // ✅ Cleanup wrapped properly
+      tween.kill();
     };
-  }, [items, speed, direction]);
+  }, [speed, direction]);
 
   return (
     <div

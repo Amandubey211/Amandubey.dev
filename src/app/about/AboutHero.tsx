@@ -13,7 +13,6 @@ import Aman from "@/assets/about/Amanimage.jpeg";
 const text = " • LET’S TALK • LET’S TALK ";
 const radius = 110;
 
-// --- ShinyButton's visual logic adapted for an <a> tag ---
 function ShinyDownloadButton({
   initialText,
   hoverText,
@@ -22,6 +21,16 @@ function ShinyDownloadButton({
   hoverText: string;
 }) {
   const [isHovered, setIsHovered] = useState(false);
+
+  // --- KEY CHANGE: Read the URL from the environment variable ---
+  // We include a fallback just in case the variable is not set.
+  const resumeUrl = process.env.NEXT_PUBLIC_RESUME_URL || "#";
+
+  if (resumeUrl === "#") {
+    console.warn(
+      "Resume URL is not set in environment variables. Please check your .env.local or Vercel settings."
+    );
+  }
 
   const textVariants = {
     initial: { y: 0 },
@@ -35,8 +44,10 @@ function ShinyDownloadButton({
 
   return (
     <motion.a
-      href="/AmanDubeyFullStackDeveloper2+YOE.pdf" // Path to the file in the `public` folder
-      download="Aman-Dubey-Resume.pdf" // Suggested download filename
+      href={resumeUrl}
+      download="Aman-Dubey-Resume.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={clsx(
@@ -78,6 +89,7 @@ function ShinyDownloadButton({
   );
 }
 
+// No changes needed in the AboutHero component itself
 export default function AboutHero() {
   return (
     <div className="grid md:grid-cols-2 gap-10 items-center">
