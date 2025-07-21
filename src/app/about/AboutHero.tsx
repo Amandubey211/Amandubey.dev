@@ -1,4 +1,3 @@
-// app/about/components/AboutHero.tsx
 "use client";
 
 import Image from "next/image";
@@ -92,7 +91,6 @@ function ShinyDownloadButton({
   );
 }
 
-// No changes needed in the AboutHero component itself
 export default function AboutHero() {
   return (
     <div className="grid md:grid-cols-2 gap-10 items-center">
@@ -157,16 +155,16 @@ export default function AboutHero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: "easeOut" }}
       >
-        <h1 className="font-bold leading-[0.88] text-[clamp(1.5rem,5.3vw,4.2rem)]">
-          A <span className="text-lime-400">creative</span>
-          <br /> developer &
+        <h1 className="font-bold leading-[0.98] text-[clamp(1.6rem,5.3vw,4.2rem)]">
+          A <span className="text-lime-400">Full-Stack</span> Developer &
           <br />
-          <span className="text-lime-400">digital designer</span>
+          <span className="text-lime-400">UI/UX</span> Expert
         </h1>
 
         <p className="mt-8 max-w-lg text-gray-400 text-lg leading-relaxed">
-          I collaborate with brands globally to design impactful,
-          mission-focused websites that drive results and achieve business
+          Leveraging 2 years of experience, I deliver secure, high-performance
+          web applications built with React and Node.js, specializing in
+          frontend optimization and intuitive UI/UX design to achieve business
           goals.
         </p>
 
