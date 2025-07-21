@@ -1,7 +1,6 @@
 // app/about/components/DesignProcess.tsx
 "use client";
 
-// KEY CHANGE: Import the `Variants` type
 import { motion, Variants } from "framer-motion";
 import {
   MessageSquare,
@@ -10,6 +9,7 @@ import {
   Code,
   ShieldCheck,
   Sparkles,
+  Settings, // Imported for the new 'Maintenance' step
 } from "lucide-react";
 
 const processSteps = [
@@ -48,9 +48,16 @@ const processSteps = [
       "Website load times, SEO, and file optimization weigh in to the quality of the site.",
     Icon: ShieldCheck,
   },
+  {
+    // New Maintenance Card
+    step: "06",
+    title: "Maintenance & Support",
+    description:
+      "Our relationship doesn't end at launch. We provide ongoing support and updates to keep your site running smoothly.",
+    Icon: Settings, // Using Settings icon
+  },
 ];
 
-// KEY CHANGE: Apply the `Variants` type
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -59,7 +66,6 @@ const containerVariants: Variants = {
   },
 };
 
-// KEY CHANGE: Apply the `Variants` type
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
@@ -67,27 +73,28 @@ const itemVariants: Variants = {
 
 export function DesignProcess() {
   return (
-    <section className="py-28">
+    <section className="py-28 px-4 sm:px-8 lg:px-16">
+      {" "}
+      {/* Added horizontal padding to the section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.6 }}
-        className="max-w-xl mb-12"
+        className="max-w-3xl mx-auto mb-12 text-center lg:text-left" // Increased max-width and centered for better presentation
       >
-        <h2 className="flex items-center gap-2 text-lime-400 font-bold tracking-widest text-sm mb-2">
+        <h2 className="flex items-center gap-2 text-lime-400 font-bold tracking-widest text-sm mb-2 justify-center lg:justify-start">
           <Sparkles size={18} />
           STEPS I FOLLOW
         </h2>
         <h3 className="text-5xl font-bold leading-tight">My Design Process</h3>
       </motion.div>
-
       <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 max-w-7xl mx-auto" // Adjusted for 3 columns on desktop, added max-w and mx-auto for wider centered content
       >
         {processSteps.map((item) => (
           <motion.div
