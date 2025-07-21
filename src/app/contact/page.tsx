@@ -8,15 +8,17 @@ import {
   Twitter,
   Instagram,
 } from "lucide-react";
+
 export const metadata = {
   title: "Contact | Aman Dubey",
 };
+
 export default function ContactPage() {
   return (
     <main className="max-w-7xl mx-auto px-6 md:px-10 py-20 text-white">
       {/* badge */}
       <h2 className="flex items-center gap-2 text-lime-400 tracking-widest text-sm mb-6">
-        <Sparkles size={18} /> CONNECT&nbsp;WITH&nbsp;ME
+        <Sparkles size={18} /> CONNECT WITH ME
       </h2>
 
       {/* heading */}
@@ -30,7 +32,7 @@ export default function ContactPage() {
       <div className="grid md:grid-cols-2 gap-16 items-start">
         {/* ───────────── form ───────────── */}
         <form
-          action="https://formspree.io/f/your-id" /* replace | wire-up */
+          action="https://formspree.io/f/xdkdabwk" /* Make sure to replace this with your Formspree ID */
           method="POST"
           className="space-y-4"
         >
@@ -100,7 +102,7 @@ export default function ContactPage() {
           <p className="text-gray-300 leading-relaxed">
             My inbox is always open. Whether you have a project or just want to
             say hi, I would love to hear from you. Feel free to contact me and
-            I&apos;ll get back&nbsp;to&nbsp;you.
+            I&apos;ll get back to you.
           </p>
 
           {/* socials */}
