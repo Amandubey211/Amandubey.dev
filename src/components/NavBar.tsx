@@ -26,10 +26,10 @@ const links = [
 
 export function NavBar() {
   const pathname = usePathname();
-  // const { theme, setTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
+
   /* Route-change progress */
   useEffect(() => {
     NProgress.start();
@@ -56,7 +56,8 @@ export function NavBar() {
   const container = clsx(
     "fixed inset-x-0 z-50 flex items-center justify-between mx-auto transition-colors",
     scrolled
-      ? "top-4 w-[92%] md:w-[70%] rounded-full bg-white/5 backdrop-blur-lg py-3 pl-6 pr-5 shadow-lg"
+      ? // Updated: Darker background with higher blur and a subtle dark shadow
+        "top-4 w-[92%] md:w-[70%] rounded-full bg-black/50 backdrop-blur-xl py-3 pl-6 pr-5 shadow-xl shadow-black/40"
       : "top-0 w-full py-6 px-5 md:px-40"
   );
 
@@ -66,7 +67,8 @@ export function NavBar() {
       <motion.nav
         className={container}
         layout
-        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+        // Updated: Smoother spring transition
+        transition={{ type: "spring", stiffness: 150, damping: 20 }}
         initial={false}
       >
         {/* logo */}

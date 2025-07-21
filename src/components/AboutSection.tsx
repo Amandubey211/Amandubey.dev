@@ -27,10 +27,13 @@ export function AboutSection() {
         blurStrength={10}
         baseOpacity={0.2}
       >
-        I&apos;m Aman Dubey, an MCA-trained full-stack dev who crafts
-        lightning-fast React and MERN products. I obsess over clean
-        architecture, micro-animations and Core Web Vitals—often slicing load
-        times by 60 percent while keeping accessibility at 100 percent.
+        I&apos;m Aman Dubey, a Full-Stack Developer with 2 years of experience
+        building high-performance applications using React and Node.js. I focus
+        on clean architecture, intuitive UI/UX, and optimizing core web vitals.
+        My work has improved app performance by 30% and strengthened security by
+        25%. I&apos;ve built scalable SaaS platforms, secure fintech systems,
+        and AI-driven features, while advocating for CI/CD pipelines and
+        reusable component libraries for efficient development.
       </ScrollReveal>
     </section>
   );

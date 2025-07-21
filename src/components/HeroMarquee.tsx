@@ -8,10 +8,24 @@ interface Props {
   className?: string;
 }
 
-const words = ["Designing", "Graphics", "Animations", "Community"] as const;
+const words = [
+  "FULL-STACK DEVELOPMENT",
+  "REACT.JS",
+  "NODE.JS",
+  "FRONTEND OPTIMIZATION",
+  "SCALABLE ARCHITECTURE",
+  "INTUITIVE UI/UX",
+  "WEB PERFORMANCE",
+  "CI/CD PIPELINES",
+  "AI-POWERED SOLUTIONS",
+  "FINTECH SYSTEMS",
+  "DATABASE MANAGEMENT",
+  "CLOUD FUNCTIONS",
+] as const;
 
 export function HeroMarquee({ className }: Props) {
-  const list = [...words, ...words]; // duplicate for seamless loop
+  const list = [...words, ...words]; // Duplicate words for a seamless, continuous loop
+
   return (
     <div
       className={clsx(
@@ -20,14 +34,14 @@ export function HeroMarquee({ className }: Props) {
       )}
     >
       <motion.div
-        className="flex gap-10 whitespace-nowrap text-6xl font-semibold text-white/10"
+        className="flex gap-10 whitespace-nowrap text-4xl font-semibold text-white/10 px-4 md:px-8"
         animate={{ x: ["0%", "-100%"] }}
-        transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
+        transition={{ repeat: Infinity, ease: "linear", duration: 40 }} // Continuous, linear loop
       >
         {list.map((word, i) => (
-          <span key={i} className="flex items-center gap-10">
+          <span key={i} className="flex items-center gap-5">
             {word}
-            <Sparkles size={28} strokeWidth={1.25} className="text-white/30" />
+            <Sparkles size={20} strokeWidth={1.2} className="text-white/30" />
           </span>
         ))}
       </motion.div>
