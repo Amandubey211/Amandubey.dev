@@ -6,7 +6,7 @@ import { NavBar } from "@/components/NavBar";
 import { sora } from "@/components/fonts";
 import { Analytics } from "@vercel/analytics/next";
 import { ClientLayoutContent } from "./ClientLayoutContent";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 export default function RootLayout({
   children,
 }: {
@@ -20,6 +20,7 @@ export default function RootLayout({
           <ClientLayoutContent>{children}</ClientLayoutContent>
         </main>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
