@@ -141,7 +141,7 @@ export default function AboutHero() {
 
           <Link
             href="/contact"
-            className="absolute inset-0 flex items-center justify-center"
+            className="absolute inset-0 flex items-center justify-center hover:scale-105 ease-in"
             aria-label="Contact Me"
           >
             <ArrowUpRight className="size-16 text-white" />
@@ -168,7 +168,7 @@ export default function AboutHero() {
           goals.
         </p>
 
-        <div className="mt-9">
+        <div className="mt-9 ms-5">
           <ShinyDownloadButton
             initialText="Download Resume"
             hoverText="Download Now"

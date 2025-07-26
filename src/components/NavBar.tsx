@@ -18,10 +18,8 @@ const links = [
   { label: "Home", path: "/" },
   { label: "About", path: "/about" },
   { label: "Projects", path: "/projects" },
-  // { label: "Blog", path: "/blog" },
-  // { label: "Products", path: "/Products" },
-
   { label: "Contact", path: "/contact" },
+  // { label: "Play", path: "/play" },
 ] as const;
 
 export function NavBar() {

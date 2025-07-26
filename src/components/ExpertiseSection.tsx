@@ -13,7 +13,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import gsap from "gsap";
 import Experties from "@/assets/home/Experties.jpg";
-import { TechStackSlider } from "./TechStackSlider";
+// import { TechStackSlider } from "./TechStackSlider";
 
 const items = [
   {
@@ -116,12 +116,12 @@ export function ExpertiseSection() {
       </div>
 
       {/* Tech Stack Slider */}
-      <TechStackSlider
+      {/* <TechStackSlider
         speed={20}
         direction="left"
         className="mt-12"
         itemClassName="bg-[#1e1e1e] text-white/90 px-4 py-2 rounded-full text-sm font-medium border border-white/10 flex items-center gap-2"
-      />
+      /> */}
     </section>
   );
 }

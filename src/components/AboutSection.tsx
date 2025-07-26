@@ -22,18 +22,18 @@ export function AboutSection() {
       {/* Scroll-triggered reveal with blur */}
       <ScrollReveal
         containerClassName=""
-        textClassName="text-3xl md:text-4xl leading-snug text-gray-200"
+        textClassName="text-2xl md:text-3xl leading-snug text-gray-200"
         enableBlur={true}
         blurStrength={10}
         baseOpacity={0.2}
       >
-        I&apos;m Aman Dubey, a Full-Stack Developer with 2 years of experience
-        building high-performance applications using React and Node.js. I focus
-        on clean architecture, intuitive UI/UX, and optimizing core web vitals.
-        My work has improved app performance by 30% and strengthened security by
-        25%. I&apos;ve built scalable SaaS platforms, secure fintech systems,
-        and AI-driven features, while advocating for CI/CD pipelines and
-        reusable component libraries for efficient development.
+        I&#39;m Aman Dubey, a Full-Stack Developer with 2 years of experience
+        building scalable, high-performance apps using React and Node.js. I
+        specialize in clean architecture, intuitive UI/UX, and optimizing web
+        vitals. My work has boosted app performance by 30% and enhanced security
+        by 25%. I&#39;ve built SaaS platforms, secure fintech systems, and
+        AI-powered features, while promoting CI/CD and reusable component
+        libraries for efficient development.
       </ScrollReveal>
     </section>
   );

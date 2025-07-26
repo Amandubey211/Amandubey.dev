@@ -2,7 +2,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { AboutSection } from "@/components/AboutSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { ExpertiseSection } from "@/components/ExpertiseSection";
-import { TestimonialsSection } from "@/components/TestimonialsSection";
+// import { TestimonialsSection } from "@/components/TestimonialsSection";
 
 /** — Dynamic <title> — */
 export const metadata = {
@@ -17,7 +17,7 @@ export default function HomePage() {
       <AboutSection />
       <ProjectsSection />
       <ExpertiseSection />
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> */}
     </main>
   );
 }
