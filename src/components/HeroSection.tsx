@@ -89,14 +89,15 @@ export function HeroSection() {
           </motion.p>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            {" "}
-            {/* Container for multiple CTAs */}
             <Link href="/about">
-              {/* IMPORTANT: Changed to RippleButton */}
               <ShinyButton initialText="Know me better" hoverText="About me" />
             </Link>
-            <Link href={resumeUrl} target="_blank" rel="noopener noreferrer">
-              {/* IMPORTANT: Changed to RippleButton */}
+            <Link
+              href={resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:block"
+            >
               <ShinyButton initialText="Download CV" hoverText="My Resume" />
             </Link>
           </div>
