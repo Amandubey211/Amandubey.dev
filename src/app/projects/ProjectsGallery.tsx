@@ -8,6 +8,7 @@ import clsx from "clsx";
 import { Sparkles, Briefcase, User } from "lucide-react";
 import { allProjects } from "@/lib/projectdata";
 import type { Project } from "@/lib/projectdata";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ProjectsGallery() {
   const [activeFilter, setActiveFilter] = useState<
@@ -44,7 +45,7 @@ export default function ProjectsGallery() {
                     className={clsx(
                       "rounded-full px-5 py-2 text-sm font-medium transition-colors duration-300",
                       activeFilter === label
-                        ? "bg-[#222222] text-white"
+                        ? "bg-[#222222] text-lime-300"
                         : "text-gray-400 hover:text-white"
                     )}
                   >
@@ -57,11 +58,26 @@ export default function ProjectsGallery() {
         </header>
 
         <section className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16">
-          {filteredProjects.map((p, index) => (
-            <div key={p.slug} className={clsx(index % 2 !== 0 && "md:mt-16")}>
-              <ProjectCard p={p} index={index} />
-            </div>
-          ))}
+          {/* Added key={activeFilter} to force re-animation when filter changes */}
+          <AnimatePresence mode="popLayout" key={activeFilter}>
+            {filteredProjects.map((p, index) => (
+              <motion.div
+                key={p.slug}
+                layout
+                initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: -50 }}
+                transition={{
+                  duration: 0.4,
+                  ease: "easeOut",
+                  layout: { duration: 0.6, ease: "easeInOut" },
+                }}
+                className={clsx(index % 2 !== 0 && "md:mt-16")}
+              >
+                <ProjectCard p={p} index={index} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </section>
       </div>
     </main>

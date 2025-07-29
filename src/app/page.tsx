@@ -8,6 +8,8 @@ import { ExpertiseSection } from "@/components/ExpertiseSection";
 export const metadata = {
   title:
     "Aman Dubey | Software Developer | UI/UX Designer | Frontend Developer",
+  description:
+    "Aman Dubey is a full-stack developer with 2.5+ years of experience in building secure, high-performance applications using React.js, Next.js, and Node.js. Specializing in frontend optimization, scalable architecture, and intuitive UI/UX.",
 };
 
 export default function HomePage() {
