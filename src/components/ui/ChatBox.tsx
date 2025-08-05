@@ -51,13 +51,27 @@ export function ChatBox({ isOpen, onClose }: ChatBoxProps) {
 
   const containerVariants: Variants = {
     hidden: { opacity: 0, y: 30, scale: 0.98 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 200, damping: 25 } },
-    exit: { opacity: 0, y: 20, scale: 0.98, transition: { duration: 0.2, ease: "easeOut" } }
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { type: "spring", stiffness: 200, damping: 25 },
+    },
+    exit: {
+      opacity: 0,
+      y: 20,
+      scale: 0.98,
+      transition: { duration: 0.2, ease: "easeOut" },
+    },
   };
 
   const messageVariants: Variants = {
     hidden: { opacity: 0, y: 15 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.3, ease: "easeOut" },
+    },
   };
 
   return (
@@ -73,7 +87,9 @@ export function ChatBox({ isOpen, onClose }: ChatBoxProps) {
           <header className="flex items-center justify-between p-4 border-b border-white/10 flex-shrink-0">
             <div className="flex items-center gap-3">
               <Bot className="text-lime-400" size={24} />
-              <h3 className="font-semibold text-white">Aman's Assistant</h3>
+              <h3 className="font-semibold text-white">
+                Aman&apos;s Assistant
+              </h3>
             </div>
             <button
               onClick={onClose}
@@ -95,9 +111,11 @@ export function ChatBox({ isOpen, onClose }: ChatBoxProps) {
                   initial="hidden"
                   animate="visible"
                   layout // This is CRUCIAL for smooth animations when new messages are added
-                  className={`flex gap-3 items-end ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex gap-3 items-end ${
+                    msg.sender === "user" ? "justify-end" : "justify-start"
+                  }`}
                 >
-                  {msg.sender === 'bot' && (
+                  {msg.sender === "bot" && (
                     <div className="w-8 h-8 flex-shrink-0 rounded-full bg-gray-700 flex items-center justify-center">
                       <Bot size={18} className="text-lime-400" />
                     </div>
@@ -117,7 +135,9 @@ export function ChatBox({ isOpen, onClose }: ChatBoxProps) {
             {isLoading && <TypingIndicator />}
             {error && (
               <motion.div
-                variants={messageVariants} initial="hidden" animate="visible"
+                variants={messageVariants}
+                initial="hidden"
+                animate="visible"
                 className="p-2 rounded-lg bg-red-500/20 text-red-300 text-center text-sm"
               >
                 Sorry, something went wrong. Please try again.
