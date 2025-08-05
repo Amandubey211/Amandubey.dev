@@ -25,8 +25,7 @@ function ShinyDownloadButton({
   // We include a fallback just in case the variable is not set.
   const resumeUrl =
     process.env.NEXT_PUBLIC_RESUME_URL ||
-    "https://drive.google.com/uc?export=download&id=1_AjqOJNCvveFTuFFfUiGcZTJa2UEd42b-DOqYQiKq4rm" 
-   
+    "https://drive.google.com/uc?export=download&id=1_AjqOJNCvveFTuFFfUiGcZTJa2UEd42b";
 
   if (resumeUrl === "#") {
     console.warn(
