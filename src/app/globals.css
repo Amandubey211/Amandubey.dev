@@ -49,3 +49,38 @@ svg text {
   fill: currentColor;
   dominant-baseline: middle;
 }
+
+
+.text-3d-effect {
+  text-shadow: 
+    1px 1px 0px rgba(0, 0, 0, 0.4), /* Bottom-right shadow for depth */
+    2px 2px 0px rgba(0, 0, 0, 0.3),
+    3px 3px 0px rgba(0, 0, 0, 0.2),
+    -1px -1px 2px rgba(255, 255, 255, 0.1); /* Top-left highlight for a subtle gloss */
+}
+
+
+:focus-visible {
+  outline: 2px solid var(--selection-color);
+  outline-offset: 2px;
+  border-radius: 4px; /* Optional: adds a slight curve to the outline */
+}
+
+/* Visually hide an element, but keep it accessible to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media (min-width: 1024px) {
+  * {
+    cursor: none;
+  }
+}

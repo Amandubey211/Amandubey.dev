@@ -34,7 +34,7 @@ export function HeroMarquee({ className }: Props) {
       )}
     >
       <motion.div
-        className="flex gap-10 whitespace-nowrap text-4xl font-semibold text-white/10 px-4 md:px-8"
+        className="flex gap-10 whitespace-nowrap text-2xl font-semibold text-white/10 px-4 md:px-8"
         animate={{ x: ["0%", "-100%"] }}
         transition={{ repeat: Infinity, ease: "linear", duration: 40 }} // Continuous, linear loop
       >
