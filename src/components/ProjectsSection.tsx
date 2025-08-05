@@ -10,19 +10,20 @@ import clsx from "clsx";
 import { allProjects } from "@/lib/projectdata";
 import { ShinyButton } from "./ShinyButton";
 import type { Project } from "@/lib/projectdata";
+// --- 1. Import the cursor context hook ---
+import { useCursorContext } from "@/contexts/CursorContext";
 
 export function ProjectsSection() {
   const featuredProjects = allProjects.filter((project) => project.isFeatured);
 
-  // --- KEY CHANGE: Split featured projects into two columns for the staggered layout ---
   const columns = useMemo(() => {
     const col1: Project[] = [];
     const col2: Project[] = [];
     featuredProjects.forEach((project, index) => {
       if (index % 2 === 0) {
-        col1.push(project); // Even index projects go to column 1
+        col1.push(project);
       } else {
-        col2.push(project); // Odd index projects go to column 2
+        col2.push(project);
       }
     });
     return { col1, col2 };
@@ -30,7 +31,7 @@ export function ProjectsSection() {
 
   return (
     <section id="projects" className="mx-auto max-w-7xl px-6 md:px-8 py-28">
-      {/* Header section remains the same, it's already well-animated and styled */}
+      {/* Header section remains unchanged */}
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -54,16 +55,13 @@ export function ProjectsSection() {
         high-quality, professional-grade applications.
       </p>
 
-      {/* --- KEY CHANGE: The new staggered grid layout --- */}
+      {/* Grid layout remains unchanged */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8">
-        {/* Column 1 */}
         <div className="flex flex-col gap-y-16">
           {columns.col1.map((p, index) => (
             <FeaturedProjectCard key={p.slug} project={p} index={index * 2} />
           ))}
         </div>
-
-        {/* Column 2 - with a top margin on desktop to create the stagger effect */}
         <div className="flex flex-col gap-y-16 md:mt-20">
           {columns.col2.map((p, index) => (
             <FeaturedProjectCard
@@ -87,7 +85,7 @@ export function ProjectsSection() {
   );
 }
 
-// --- A dedicated, enhanced card component for this section ---
+// --- The card component with only the cursor interaction added ---
 function FeaturedProjectCard({
   project,
   index,
@@ -95,14 +93,18 @@ function FeaturedProjectCard({
   project: Project;
   index: number;
 }) {
+  // --- 2. Get the context function ---
+  const { setVariant } = useCursorContext();
+
   return (
     <div className="h-full">
-      {" "}
-      {/* Wrapper to ensure card takes full height if needed */}
       <Link
         href={`/projects/${project.slug}`}
         className="group relative flex h-full flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-400/80 rounded-lg"
         aria-label={`View details for ${project.title}`}
+        // --- 3. Add cursor interaction events ---
+        onMouseEnter={() => setVariant("hover")}
+        onMouseLeave={() => setVariant("default")}
       >
         {/* The Glow Effect Element */}
         <div
@@ -123,7 +125,7 @@ function FeaturedProjectCard({
               alt={`Cover image for ${project.title}`}
               width={900}
               height={600}
-              priority={index < 2} // Prioritize only the first two featured images
+              priority={index < 2}
               className="h-auto w-full rounded-xl object-contain transition-transform duration-500 group-hover:scale-105"
             />
           </div>

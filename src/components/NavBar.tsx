@@ -111,7 +111,7 @@ useEffect(() => {
           <Link
             href="/"
             aria-label="Home"
-            className="font-extrabold tracking-widest text-lg text-white"
+            className="font-bold tracking-widest text-lg text-white"
           >
             AD
           </Link>
@@ -128,7 +128,7 @@ useEffect(() => {
                       href={path}
                       className="group flex items-center gap-2.5 text-base font-medium text-white"
                     >
-                      <span className="relative flex h-3 w-3">
+                      <span className="relative flex h-3 w-3 ms-9">
                         {!prefersReducedMotion && (
                           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime-400 opacity-75"></span>
                         )}

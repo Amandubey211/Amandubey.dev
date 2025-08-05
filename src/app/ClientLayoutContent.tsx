@@ -1,4 +1,4 @@
-// app/ClientLayoutContent.tsx
+// app/ClientLayoutContent.tsx (Updated)
 "use client";
 
 import { usePathname } from "next/navigation";
@@ -7,9 +7,11 @@ import { Footer } from "@/components/Footer";
 import LenisWrapper from "@/components/LenisWrapper";
 import { NavBar } from "@/components/NavBar";
 import { SkipToContent } from "@/components/ui/SkipToContent";
-import { CursorProvider } from "@/contexts/CursorContext"; // Import CursorProvider
-import { CustomCursor } from "@/components/ui/CustomCursor"; // Import CustomCursor
-// import { Preloader } from "@/components/ui/Preloader";
+import { CursorProvider } from "@/contexts/CursorContext";
+import { CustomCursor } from "@/components/ui/CustomCursor";
+import { FloatingActionButtons } from "@/components/ui/FloatingActionButtons";
+// CORRECTED: Uncomment the Preloader if you want to use it
+// Import the new Floating Action Buttons
 
 export function ClientLayoutContent({
   children,
@@ -20,10 +22,9 @@ export function ClientLayoutContent({
   const isContactPage = pathname === "/contact";
 
   return (
-    <CursorProvider> {/* Wrap everything in the CursorProvider */}
-      <CustomCursor /> {/* Render the cursor component */}
+    <CursorProvider>
+      <CustomCursor />
       <LenisWrapper>
-        {/* <Preloader /> */}
         <SkipToContent />
         <NavBar />
         <main id="main-content" className="pt-28 md:pt-32">
@@ -32,6 +33,8 @@ export function ClientLayoutContent({
         {!isContactPage && <CallToActionSection />}
         <Footer />
       </LenisWrapper>
+      {/* Add the floating buttons here, outside LenisWrapper to prevent scroll interference */}
+      <FloatingActionButtons />
     </CursorProvider>
   );
 }

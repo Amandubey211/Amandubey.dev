@@ -1,3 +1,4 @@
+// AboutHero.tsx (Updated)
 "use client";
 
 import Image from "next/image";
@@ -21,17 +22,15 @@ function ShinyDownloadButton({
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  // --- KEY CHANGE: Read the URL from the environment variable ---
-  // We include a fallback just in case the variable is not set.
-const resumeUrl =
-  process.env.NEXT_PUBLIC_RESUME_URL ||
-  "https://drive.google.com/file/d/1_AjqOJNCvveFTuFFfUiGcZTJa2UEd42b/preview";
+  const resumeUrl =
+    process.env.NEXT_PUBLIC_RESUME_URL ||
+    "https://drive.google.com/file/d/1_AjqOJNCvveFTuFFfUiGcZTJa2UEd42b/preview";
 
-if (resumeUrl === "#") {
-  console.warn(
-    "Resume URL is not set in environment variables. Please check your .env.local or Vercel settings."
-  );
-}
+  if (resumeUrl === "#") {
+    console.warn(
+      "Resume URL is not set in environment variables. Please check your .env.local or Vercel settings."
+    );
+  }
 
   const textVariants = {
     initial: { y: 0 },
@@ -46,7 +45,6 @@ if (resumeUrl === "#") {
   return (
     <motion.a
       href={resumeUrl}
-      // download="Aman-Dubey-Resume.pdf"
       target="_blank"
       rel="noopener noreferrer"
       onMouseEnter={() => setIsHovered(true)}
@@ -92,8 +90,9 @@ if (resumeUrl === "#") {
 
 export default function AboutHero() {
   return (
-    <div className="grid md:grid-cols-2 gap-10 items-center">
-      {/* photo + CTA */}
+    // --- THIS IS THE LINE THAT WAS CHANGED ---
+    <div className="grid md:grid-cols-[2fr_3fr] px-20 gap-10 items-center">
+      {/* photo + CTA (40% width on medium screens and up) */}
       <div className="relative flex justify-center md:justify-end">
         <Image
           src={Aman}
@@ -101,7 +100,7 @@ export default function AboutHero() {
           width={560}
           height={680}
           priority
-          className="rounded-[40px] object-cover shadow-2xl opacity-80"
+          className="rounded-br-[150px] rounded-bl-[150px] object-cover shadow-2xl opacity-80"
         />
 
         {/* spinning disc */}
@@ -148,13 +147,13 @@ export default function AboutHero() {
         </motion.div>
       </div>
 
-      {/* headline / copy / button */}
+      {/* headline / copy / button (60% width on medium screens and up) */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: "easeOut" }}
       >
-        <h1 className="font-bold leading-[0.98] text-[clamp(1.6rem,5.3vw,4.2rem)]">
+        <h1 className="font-bold leading-[0.98] text-[clamp(1.9rem,5.3vw,4.2rem)]">
           A <span className="text-lime-400">Full-Stack</span> Developer &
           <br />
           <span className="text-lime-400">UI/UX</span> Expert
