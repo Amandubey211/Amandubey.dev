@@ -23,15 +23,15 @@ function ShinyDownloadButton({
 
   // --- KEY CHANGE: Read the URL from the environment variable ---
   // We include a fallback just in case the variable is not set.
-  const resumeUrl =
-    process.env.NEXT_PUBLIC_RESUME_URL ||
-    "https://drive.google.com/uc?export=download&id=1_AjqOJNCvveFTuFFfUiGcZTJa2UEd42b";
+const resumeUrl =
+  process.env.NEXT_PUBLIC_RESUME_URL ||
+  "https://drive.google.com/file/d/1_AjqOJNCvveFTuFFfUiGcZTJa2UEd42b/preview";
 
-  if (resumeUrl === "#") {
-    console.warn(
-      "Resume URL is not set in environment variables. Please check your .env.local or Vercel settings."
-    );
-  }
+if (resumeUrl === "#") {
+  console.warn(
+    "Resume URL is not set in environment variables. Please check your .env.local or Vercel settings."
+  );
+}
 
   const textVariants = {
     initial: { y: 0 },
@@ -46,7 +46,7 @@ function ShinyDownloadButton({
   return (
     <motion.a
       href={resumeUrl}
-      download="Aman-Dubey-Resume.pdf"
+      // download="Aman-Dubey-Resume.pdf"
       target="_blank"
       rel="noopener noreferrer"
       onMouseEnter={() => setIsHovered(true)}
