@@ -84,3 +84,28 @@ svg text {
     cursor: none;
   }
 } */
+
+
+.bento-card {
+  /* This variable will be updated by Framer Motion */
+  --glow-color: rgb(163 230 53 / 0.5); /* lime-400 with 50% opacity */
+}
+
+/* The glow effect pseudo-element */
+.bento-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    300px circle at var(--glow-x, 0px) var(--glow-y, 0px),
+    var(--glow-color),
+    transparent 80%
+  );
+  opacity: var(--glow-opacity, 0);
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+  z-index: 0;
+}

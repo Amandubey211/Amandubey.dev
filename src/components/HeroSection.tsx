@@ -1,31 +1,30 @@
-// components/sections/HeroSection.tsx (Final Version)
+// components/sections/HeroSection.tsx (Final Fixed Version)
 "use client";
 
-// CORRECTED: Added useRef, useScroll, and useTransform imports
 import { useRef } from "react";
 import { motion, Variants, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { Hand ,Code } from "lucide-react";
+import { Hand, Sprout, Code } from "lucide-react";
 import BlurText from "@/components/BlurText";
 import { SocialRow } from "./SocialRow";
 import { HeroMarquee } from "./HeroMarquee";
 import { ShinyButton } from "./ShinyButton";
 import { usePrefersReducedMotion } from "@/Hook/use-prefers-reduced-motion";
-import { useCursorContext } from "@/contexts/CursorContext"; // Import the hook
+import { useCursorContext } from "@/contexts/CursorContext";
+
 export function HeroSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const { setVariant } = useCursorContext();
-  // Create a ref to attach to the section element
   const heroRef = useRef<HTMLSelectElement>(null);
 
-  // Track scroll progress of the heroRef element
   const { scrollYProgress } = useScroll({
     target: heroRef,
-    offset: ["start start", "end start"], // Track from when the top of the element hits the top of the viewport, until the bottom of the element hits the top.
+    offset: ["start start", "end start"],
   });
 
-  // Map the scroll progress (0 to 1) to a rotation value (0deg to 45deg)
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 45]);
+  // Move useTransform hooks to top level
+  const codeIconY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const sproutIconY = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   const parent: Variants = {
     hidden: {},
@@ -50,30 +49,47 @@ export function HeroSection() {
     "https://drive.google.com/file/d/1_AjqOJNCvveFTuFFfUiGcZTJa2UEd42b/preview";
 
   return (
-    // Attach the ref to the section
     <section
       ref={heroRef}
       className="relative max-w-5xl mx-auto px-6 md:px-12 pt-12 pb-44"
     >
-      {/* Animated Sprout Icon */}
       <motion.div
-        className="absolute top-20 right-10 md:right-0 opacity-60 -z-10"
-        // The floating animation respects reduced motion
-        animate={
-          prefersReducedMotion ? {} : { y: [0, -15, 0], rotate: [0, 10, 0] }
-        }
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          repeatType: "mirror",
-          ease: "easeInOut",
-        }}
-        // The scroll-driven rotation is applied via the style prop
-        style={prefersReducedMotion ? {} : { rotate }}
+        className="absolute top-16 right-0 opacity-50 -z-10"
+        style={prefersReducedMotion ? {} : { y: codeIconY }}
       >
-        <Code className="w-16 h-16 text-lime-400/80" />
+        <motion.div
+          animate={
+            prefersReducedMotion ? {} : { y: [0, -30, 0], rotate: [0, 5, 0] }
+          }
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut",
+          }}
+        >
+          <Code className="w-20 h-20 text-lime-400/70" />
+        </motion.div>
       </motion.div>
-
+      <motion.div
+        className="absolute top-3/4 -right-8 opacity-50 -z-10"
+        style={prefersReducedMotion ? {} : { y: sproutIconY }}
+      >
+        <motion.div
+          animate={
+            prefersReducedMotion ? {} : { y: [0, 10, 0], rotate: [0, -8, 0] }
+          }
+          transition={{
+            duration: 3.5,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut",
+            delay: 0.5,
+          }}
+        >
+          <Sprout className="w-16 h-16 text-teal-400/70" />
+        </motion.div>
+      </motion.div>
       <motion.p
         variants={child}
         transition={childTransition}
@@ -93,9 +109,8 @@ export function HeroSection() {
         >
           <Hand className="w-8 h-8 text-lime-500" />
         </motion.span>
-        Hey! It’s me <span className="font-medium">Aman,</span>
+        Hey! It&apos;s me <span className="font-medium">Aman,</span>
       </motion.p>
-
       <motion.div
         variants={parent}
         initial={prefersReducedMotion ? "visible" : "hidden"}
@@ -152,9 +167,7 @@ export function HeroSection() {
           </div>
         </motion.div>
       </motion.div>
-
       <hr className="mt-16 border-white/10" />
-
       <SocialRow className="mt-10" />
       <HeroMarquee className="absolute -bottom-2 inset-x-0" />
     </section>

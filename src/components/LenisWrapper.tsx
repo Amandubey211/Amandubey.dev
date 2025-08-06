@@ -2,7 +2,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import useLenis from "@/Hook/useLenis";
+import useLenis from "../../useLenis";
 import { LenisContext } from "@/contexts/LenisContext"; // Import the context
 
 export default function LenisWrapper({ children }: { children: ReactNode }) {

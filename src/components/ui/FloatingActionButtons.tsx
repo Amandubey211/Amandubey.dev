@@ -12,7 +12,7 @@ import {
 } from "framer-motion";
 import { Expand, Shrink, Bot, ArrowUp } from "lucide-react";
 // =================== KEY CHANGE 1: CORRECT IMPORT =================== //
-import useLenis from "@/Hook/useLenis"; // Adjusted to your custom hook path
+import useLenis from "../../../useLenis"; // Adjusted to your custom hook path
 // ==================================================================== //
 import { useCursorContext } from "@/contexts/CursorContext";
 import { ChatBox } from "./ChatBox";
