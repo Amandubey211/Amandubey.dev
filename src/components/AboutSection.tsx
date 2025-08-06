@@ -25,7 +25,7 @@ export function AboutSection() {
         textClassName="text-2xl md:text-3xl leading-snug text-gray-200"
         enableBlur={true}
         blurStrength={10}
-        baseOpacity={0.2}
+        // baseOpacity={0.2}
       >
         I&#39;m Aman Dubey, a Full-Stack Developer with 2 years of experience
         building scalable, high-performance apps using React and Node.js. I

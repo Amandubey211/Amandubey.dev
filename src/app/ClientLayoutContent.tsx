@@ -1,4 +1,3 @@
-// app/ClientLayoutContent.tsx (Updated)
 "use client";
 
 import { usePathname } from "next/navigation";
@@ -10,8 +9,6 @@ import { SkipToContent } from "@/components/ui/SkipToContent";
 import { CursorProvider } from "@/contexts/CursorContext";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { FloatingActionButtons } from "@/components/ui/FloatingActionButtons";
-// CORRECTED: Uncomment the Preloader if you want to use it
-// Import the new Floating Action Buttons
 
 export function ClientLayoutContent({
   children,

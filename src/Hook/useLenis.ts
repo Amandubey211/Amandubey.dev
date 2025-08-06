@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 
-// This hook now creates, manages, and RETURNS the Lenis instance.
 export default function useLenis() {
-  const [lenis, setLenis] = useState<Lenis | null>(null);
+  const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
     const newLenisInstance = new Lenis({
@@ -15,23 +14,20 @@ export default function useLenis() {
       touchMultiplier: 2,
       infinite: false,
     });
+    lenisRef.current = newLenisInstance;
 
-    // Store the instance in state
-    setLenis(newLenisInstance);
-
+    let animationFrameId: number;
     function raf(time: number) {
       newLenisInstance.raf(time);
-      requestAnimationFrame(raf);
+      animationFrameId = requestAnimationFrame(raf);
     }
+    animationFrameId = requestAnimationFrame(raf);
 
-    requestAnimationFrame(raf);
-
-    // Cleanup function
     return () => {
       newLenisInstance.destroy();
-      setLenis(null);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
-  return lenis; // Return the instance
+  return lenisRef.current;
 }

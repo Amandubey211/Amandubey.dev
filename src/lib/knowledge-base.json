@@ -1,0 +1,32 @@
+
+
+{
+  "greetings": [
+    "Hello there! How can I help you learn more about Aman?",
+    "Hi! I'm Aman's assistant. Feel free to ask me anything about his work.",
+    "Welcome! I can answer questions about Aman's skills, projects, and professional experience."
+  ],
+  "fallback": "I'm not sure how to answer that. However, I can tell you about Aman's 'skills', 'projects', or 'experience'. You can also ask for his 'contact' information.",
+  "keywords": {
+    "projects": {
+      "response": "Aman has worked on several exciting projects. One of his favorites is a full-stack e-commerce platform built with Next.js, TypeScript, and Stripe. Would you like to hear more about a specific project?",
+      "keywords": ["project", "work", "portfolio", "build", "create"]
+    },
+    "skills": {
+      "response": "Aman's key technical skills include: React, Next.js, TypeScript, Node.js, GraphQL, and Framer Motion for animations. He is passionate about building performant and beautiful user interfaces.",
+      "keywords": ["skill", "tech", "stack", "proficient", "knows", "experience with", "typescript", "react"]
+    },
+    "experience": {
+      "response": "Aman has over X years of experience as a front-end developer, specializing in building modern web applications. He previously worked at [Company Name] where he [did something impressive].",
+      "keywords": ["experience", "history", "worked", "job", "career"]
+    },
+    "contact": {
+      "response": "You can reach out to Aman via email at [your-email@example.com] or connect with him on LinkedIn at [linkedin.com/in/your-profile].",
+      "keywords": ["contact", "email", "linkedin", "hire", "connect", "reach out"]
+    },
+    "about": {
+        "response": "This is an AI assistant designed by Aman to showcase his portfolio. It's built with React, Next.js, and Framer Motion, and demonstrates his ability to create engaging, production-grade user experiences. The 'AI' is powered by a structured knowledge base and keyword matching.",
+        "keywords": ["about this", "how does this work", "meta", "assistant", "bot"]
+    }
+  }
+}

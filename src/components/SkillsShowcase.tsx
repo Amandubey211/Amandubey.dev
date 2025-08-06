@@ -1,8 +1,15 @@
 // components/SkillsShowcase.tsx
 "use client";
 
-import { useMemo } from "react";
-import { motion, Variants } from "framer-motion"; // Import Variants for type safety
+import React, {
+  useMemo,
+  useRef,
+  useEffect,
+  useCallback,
+  useState,
+} from "react";
+import { motion, Variants } from "framer-motion";
+import { gsap } from "gsap";
 import {
   Atom,
   Sigma,
@@ -45,7 +52,7 @@ interface SkillCategory {
   skills: Skill[];
 }
 
-// Data for your skills, categorized and refined for better organization and relevance
+// Data for your skills, categorized and refined
 const skillCategories: SkillCategory[] = [
   {
     title: "Frontend Development",
@@ -216,14 +223,13 @@ const skillCategories: SkillCategory[] = [
   },
 ];
 
-// Animation variants for Framer Motion, now explicitly typed as Variants
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1, // Stagger categories (each category animates after the previous one)
-      delayChildren: 0.2, // Delay start of first category animation
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
     },
   },
 };
@@ -236,23 +242,257 @@ const categoryVariants: Variants = {
     transition: {
       duration: 0.5,
       ease: "easeOut",
-      staggerChildren: 0.05, // Stagger individual skill items within a category
     },
   },
 };
 
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 10, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.3, ease: "easeOut" },
-  },
+const createParticleElement = (
+  x: number,
+  y: number,
+  color: string = "163, 230, 53"
+): HTMLDivElement => {
+  const el = document.createElement("div");
+  el.className = "particle";
+  el.style.cssText = `
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(${color}, 1);
+      box-shadow: 0 0 6px rgba(${color}, 0.6);
+      pointer-events: none;
+      z-index: 100;
+      left: ${x}px;
+      top: ${y}px;
+    `;
+  return el;
+};
+
+const ParticleCard: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+  disableAnimations?: boolean;
+  style?: React.CSSProperties;
+  particleCount?: number;
+  glowColor?: string;
+  enableTilt?: boolean;
+  clickEffect?: boolean;
+  enableMagnetism?: boolean;
+}> = ({
+  children,
+  className = "",
+  disableAnimations = false,
+  style,
+  particleCount = 12,
+  glowColor = "163, 230, 53",
+  enableTilt = true,
+  // clickEffect = false,
+  enableMagnetism = true,
+}) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const particlesRef = useRef<HTMLDivElement[]>([]);
+  const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
+  const isHoveredRef = useRef(false);
+  const memoizedParticles = useRef<HTMLDivElement[]>([]);
+  const particlesInitialized = useRef(false);
+  const magnetismAnimationRef = useRef<gsap.core.Tween | null>(null);
+
+  const initializeParticles = useCallback(() => {
+    if (particlesInitialized.current || !cardRef.current) return;
+
+    const { width, height } = cardRef.current.getBoundingClientRect();
+    memoizedParticles.current = Array.from({ length: particleCount }, () =>
+      createParticleElement(
+        Math.random() * width,
+        Math.random() * height,
+        glowColor
+      )
+    );
+    particlesInitialized.current = true;
+  }, [particleCount, glowColor]);
+
+  const clearAllParticles = useCallback(() => {
+    timeoutsRef.current.forEach(clearTimeout);
+    timeoutsRef.current = [];
+    magnetismAnimationRef.current?.kill();
+
+    particlesRef.current.forEach((particle) => {
+      gsap.to(particle, {
+        scale: 0,
+        opacity: 0,
+        duration: 0.3,
+        ease: "back.in(1.7)",
+        onComplete: () => {
+          particle.parentNode?.removeChild(particle);
+        },
+      });
+    });
+    particlesRef.current = [];
+  }, []);
+
+  const animateParticles = useCallback(() => {
+    if (!cardRef.current || !isHoveredRef.current) return;
+
+    if (!particlesInitialized.current) {
+      initializeParticles();
+    }
+
+    memoizedParticles.current.forEach((particle, index) => {
+      const timeoutId = setTimeout(() => {
+        if (!isHoveredRef.current || !cardRef.current) return;
+
+        const clone = particle.cloneNode(true) as HTMLDivElement;
+        cardRef.current.appendChild(clone);
+        particlesRef.current.push(clone);
+
+        gsap.fromTo(
+          clone,
+          { scale: 0, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.7)" }
+        );
+
+        gsap.to(clone, {
+          x: (Math.random() - 0.5) * 100,
+          y: (Math.random() - 0.5) * 100,
+          rotation: Math.random() * 360,
+          duration: 2 + Math.random() * 2,
+          ease: "none",
+          repeat: -1,
+          yoyo: true,
+        });
+
+        gsap.to(clone, {
+          opacity: 0.3,
+          duration: 1.5,
+          ease: "power2.inOut",
+          repeat: -1,
+          yoyo: true,
+        });
+      }, index * 100);
+
+      timeoutsRef.current.push(timeoutId);
+    });
+  }, [initializeParticles]);
+
+  useEffect(() => {
+    if (disableAnimations || !cardRef.current) return;
+
+    const element = cardRef.current;
+
+    const handleMouseEnter = () => {
+      isHoveredRef.current = true;
+      animateParticles();
+
+      if (enableTilt) {
+        gsap.to(element, {
+          rotateX: 5,
+          rotateY: 5,
+          duration: 0.3,
+          ease: "power2.out",
+          transformPerspective: 1000,
+        });
+      }
+    };
+
+    const handleMouseLeave = () => {
+      isHoveredRef.current = false;
+      clearAllParticles();
+
+      if (enableTilt) {
+        gsap.to(element, {
+          rotateX: 0,
+          rotateY: 0,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      }
+
+      if (enableMagnetism) {
+        gsap.to(element, {
+          x: 0,
+          y: 0,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      }
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!enableTilt && !enableMagnetism) return;
+
+      const rect = element.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      if (enableTilt) {
+        const rotateX = ((y - centerY) / centerY) * -10;
+        const rotateY = ((x - centerX) / centerX) * 10;
+
+        gsap.to(element, {
+          rotateX,
+          rotateY,
+          duration: 0.1,
+          ease: "power2.out",
+          transformPerspective: 1000,
+        });
+      }
+
+      if (enableMagnetism) {
+        const magnetX = (x - centerX) * 0.05;
+        const magnetY = (y - centerY) * 0.05;
+
+        magnetismAnimationRef.current = gsap.to(element, {
+          x: magnetX,
+          y: magnetY,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      }
+    };
+
+    element.addEventListener("mouseenter", handleMouseEnter);
+    element.addEventListener("mouseleave", handleMouseLeave);
+    element.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      isHoveredRef.current = false;
+      element.removeEventListener("mouseenter", handleMouseEnter);
+      element.removeEventListener("mouseleave", handleMouseLeave);
+      element.removeEventListener("mousemove", handleMouseMove);
+      clearAllParticles();
+    };
+  }, [
+    animateParticles,
+    clearAllParticles,
+    disableAnimations,
+    enableTilt,
+    enableMagnetism,
+    glowColor,
+  ]);
+
+  return (
+    <div
+      ref={cardRef}
+      className={`${className} relative overflow-hidden`}
+      style={{ ...style, position: "relative", overflow: "hidden" }}
+    >
+      {children}
+    </div>
+  );
 };
 
 export function SkillsShowcase() {
   const categories = useMemo(() => skillCategories, []);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   return (
     <motion.section
@@ -266,36 +506,33 @@ export function SkillsShowcase() {
         My Expertise & Tech Stack
       </h2>
 
-      {/* Changed to a grid layout for categories */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {categories.map((category) => (
-          <motion.div
-            key={category.title}
-            className="flex flex-col gap-6 bg-[#171717] p-6 rounded-xl border border-white/10 shadow-lg" // Added background, padding, border, shadow for the box effect
-            variants={categoryVariants}
-          >
-            <h3 className="text-xl font-bold text-lime-400 border-b border-white/10 pb-3">
-              {category.title}
-            </h3>
-            <div className="flex flex-wrap gap-3">
-              {" "}
-              {/* Reduced gap for denser badges */}
-              {category.skills.map((skill) => (
-                <motion.div
-                  key={skill.name}
-                  variants={itemVariants}
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 0 15px rgba(163, 230, 53, 0.4)", // Lime-400 glow
-                  }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  className="bg-[#222222] text-white/90 px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/10 flex items-center gap-1.5 shadow-sm cursor-default" // Adjusted classes for smaller badge size and icon gap
-                >
-                  {skill.icon}
-                  <span>{skill.name}</span>
-                </motion.div>
-              ))}
-            </div>
+          <motion.div key={category.title} variants={categoryVariants}>
+            <ParticleCard
+              className="flex flex-col gap-6 bg-[#171717] p-6 rounded-xl border border-white/10 shadow-lg h-full"
+              disableAnimations={isMobile}
+            >
+              <h3 className="text-xl font-bold text-lime-400 border-b border-white/10 pb-3">
+                {category.title}
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {category.skills.map((skill) => (
+                  <motion.div
+                    key={skill.name}
+                    whileHover={{
+                      scale: 1.05,
+                      boxShadow: "0 0 15px rgba(163, 230, 53, 0.4)",
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    className="bg-[#222222] text-white/90 px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/10 flex items-center gap-1.5 shadow-sm cursor-default"
+                  >
+                    {skill.icon}
+                    <span>{skill.name}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </ParticleCard>
           </motion.div>
         ))}
       </div>

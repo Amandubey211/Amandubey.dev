@@ -5,7 +5,7 @@
 import { useRef } from "react";
 import { motion, Variants, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { Hand, Sprout } from "lucide-react";
+import { Hand ,Code } from "lucide-react";
 import BlurText from "@/components/BlurText";
 import { SocialRow } from "./SocialRow";
 import { HeroMarquee } from "./HeroMarquee";
@@ -71,7 +71,7 @@ export function HeroSection() {
         // The scroll-driven rotation is applied via the style prop
         style={prefersReducedMotion ? {} : { rotate }}
       >
-        <Sprout className="w-16 h-16 text-lime-400/80" />
+        <Code className="w-16 h-16 text-lime-400/80" />
       </motion.div>
 
       <motion.p

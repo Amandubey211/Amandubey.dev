@@ -79,8 +79,8 @@ svg text {
   border-width: 0;
 }
 
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
   * {
     cursor: none;
   }
-}
+} */

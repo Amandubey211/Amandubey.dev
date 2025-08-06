@@ -100,7 +100,7 @@ export default function AboutHero() {
           width={560}
           height={680}
           priority
-          className="rounded-br-[150px] rounded-bl-[150px] object-cover shadow-2xl opacity-80"
+          className="rounded-br-[150px] rounded-bl-[150px] rounded-2xl object-cover shadow-2xl opacity-80"
         />
 
         {/* spinning disc */}

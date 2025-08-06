@@ -1,31 +1,36 @@
 // lib/ai.ts
 
+import knowledgeBase from './knowledge-base.json';
+
 export interface Message {
   id: number;
   text: string;
   sender: "user" | "bot";
 }
 
-/**
- * Simulates calling a backend AI service.
- * FUTURE: Replace this with a fetch call to your real AI backend.
- * @param message The user's message string.
- * @param history The previous conversation history.
- * @returns A promise that resolves to the bot's response text.
- */
-export const getBotResponse = (message: string, history: Message[]): Promise<string> => {
-  // In a real app, you might send the history for context.
-  console.log("Sending to AI:", { message, history });
+// Simple utility to simulate a delay
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-  return new Promise((resolve) => {
-    // Simulate network delay and AI "thinking" time
-    setTimeout(() => {
-      // This is where your AI's logic would generate a real response
-      const response = `This is a simulated response to: "${message.substring(
-        0,
-        30
-      )}...". Based on Aman's resume, I can confirm his expertise in high-performance web applications.`;
-      resolve(response);
-    }, 1500);
-  });
+export const getBotResponse = async (userText: string, chatHistory: Message[]): Promise<string> => {
+  const normalizedText = userText.toLowerCase().trim();
+console.log(chatHistory,"chatHistory")
+  // Find a matching keyword section from our knowledge base
+  for (const key in knowledgeBase.keywords) {
+    const section = knowledgeBase.keywords[key as keyof typeof knowledgeBase.keywords];
+    if (section.keywords.some(keyword => normalizedText.includes(keyword))) {
+      const responseText = section.response;
+      
+      // --- SIMULATE THINKING ---
+      // Calculate a realistic "typing" delay based on the response length.
+      // e.g., 20 words per second, with a max of 2 seconds.
+      const typingDelay = Math.min(responseText.length * 50, 2000);
+      await sleep(typingDelay);
+
+      return responseText;
+    }
+  }
+
+  // If no keyword matches, provide a helpful fallback response.
+  await sleep(800); // A standard delay for a fallback.
+  return knowledgeBase.fallback;
 };
