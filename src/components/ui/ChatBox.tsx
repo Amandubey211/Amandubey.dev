@@ -331,7 +331,7 @@ export function ChatBox({ isOpen, onClose }: ChatBoxProps) {
             </div>
 
             <div className="p-4 border-t border-white/10 flex-shrink-0">
-              <div className="flex items-center gap-2 rounded-full bg-gray-900/80 p-1 pl-4 border border-white/10 focus-within:border-lime-400 transition-colors">
+              <div className="flex items-center gap-2 rounded-full bg-gray-900/80 p-1 pl-4 border border-white/10 transition-colors">
                 <input
                   ref={inputRef}
                   type="text"
