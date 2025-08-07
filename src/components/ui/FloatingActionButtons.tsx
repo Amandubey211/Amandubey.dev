@@ -4,8 +4,14 @@
 
 import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { motion, AnimatePresence, Variants } from "framer-motion";
-import { Expand, Shrink, Bot } from "lucide-react";
+import {
+  motion,
+  AnimatePresence,
+  Variants,
+  useScroll,
+  useMotionValueEvent,
+} from "framer-motion";
+import { Expand, Shrink, Bot, ArrowUp } from "lucide-react"; // Import ArrowUp icon
 import { useCursorContext } from "@/contexts/CursorContext";
 import { ChatBox } from "./ChatBox";
 import { Backdrop } from "./Backdrop";
@@ -17,13 +23,36 @@ export function FloatingActionButtons() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false); // State for scroll-to-top button visibility
   const lenis = useLenis();
+
+  // --- SCROLL TRACKING LOGIC ---
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    // Show the button only after scrolling down 400px
+    if (latest > 400) {
+      setShowScrollTop(true);
+    } else {
+      setShowScrollTop(false);
+    }
+  });
+
+  // --- HANDLER TO SCROLL TO TOP ---
+  const handleScrollToTop = () => {
+    if (lenis) {
+      // Use lenis for a smooth scroll animation
+      lenis.scrollTo(0, {
+        duration: 1.5,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+    }
+  };
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  // --- LINTER FIX: Converted ternary operator to if/else block ---
   useEffect(() => {
     if (lenis) {
       if (isChatOpen) {
@@ -88,6 +117,30 @@ export function FloatingActionButtons() {
 
   const fabContent = (
     <>
+      {/* --- SCROLL TO TOP BUTTON (BOTTOM-LEFT) --- */}
+      <div className="fixed bottom-6 left-6 z-[100]">
+        <AnimatePresence>
+          {showScrollTop && (
+            <motion.button
+              onClick={handleScrollToTop}
+              onMouseEnter={() => setVariant("hover")}
+              onMouseLeave={() => setVariant("default")}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ type: "spring", stiffness: 150, damping: 20 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="flex h-12 w-12 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-lg border border-white/20 shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-400"
+              aria-label="Scroll to top"
+            >
+              <ArrowUp size={20} />
+            </motion.button>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* --- MAIN ACTION BUTTONS (BOTTOM-RIGHT) --- */}
       <motion.div
         variants={fabContainerVariants}
         initial="hidden"
