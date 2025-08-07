@@ -1,32 +1,107 @@
-
-
 {
   "greetings": [
-    "Hello there! How can I help you learn more about Aman?",
-    "Hi! I'm Aman's assistant. Feel free to ask me anything about his work.",
-    "Welcome! I can answer questions about Aman's skills, projects, and professional experience."
+    "Hello there! I'm Aman's AI assistant. How can I help you today?",
+    "Hi! Feel free to ask me anything about Aman's skills, projects, or professional experience."
   ],
-  "fallback": "I'm not sure how to answer that. However, I can tell you about Aman's 'skills', 'projects', or 'experience'. You can also ask for his 'contact' information.",
+  "fallback": "I'm not sure how to answer that. However, I can tell you about 'skills', 'experience', or a specific project like 'FormaFlow' or 'Student Diwan'. You can also ask for his 'contact' information.",
   "keywords": {
-    "projects": {
-      "response": "Aman has worked on several exciting projects. One of his favorites is a full-stack e-commerce platform built with Next.js, TypeScript, and Stripe. Would you like to hear more about a specific project?",
-      "keywords": ["project", "work", "portfolio", "build", "create"]
-    },
-    "skills": {
-      "response": "Aman's key technical skills include: React, Next.js, TypeScript, Node.js, GraphQL, and Framer Motion for animations. He is passionate about building performant and beautiful user interfaces.",
-      "keywords": ["skill", "tech", "stack", "proficient", "knows", "experience with", "typescript", "react"]
-    },
-    "experience": {
-      "response": "Aman has over X years of experience as a front-end developer, specializing in building modern web applications. He previously worked at [Company Name] where he [did something impressive].",
-      "keywords": ["experience", "history", "worked", "job", "career"]
+    "about": {
+      "response": "Aman Dubey is a Full-Stack Developer with 2 years of experience delivering secure, high-performance applications with React and Node.js. He is an expert in frontend optimization, scalable architecture, and creating intuitive user experiences.",
+      "keywords": [
+        "about aman",
+        "who is he",
+        "summary",
+        "introduction",
+        "aman dubey"
+      ]
     },
     "contact": {
-      "response": "You can reach out to Aman via email at [your-email@example.com] or connect with him on LinkedIn at [linkedin.com/in/your-profile].",
-      "keywords": ["contact", "email", "linkedin", "hire", "connect", "reach out"]
+      "response": "You can reach out to Aman via email at [amandubey8833@gmail.com](mailto:amandubey8833@gmail.com) or connect with him on [LinkedIn](https://www.linkedin.com/in/amandubey211/). You can also view his [GitHub profile](https://github.com/Amandubey211).",
+      "keywords": [
+        "contact",
+        "email",
+        "linkedin",
+        "hire",
+        "connect",
+        "reach out",
+        "github"
+      ]
     },
-    "about": {
-        "response": "This is an AI assistant designed by Aman to showcase his portfolio. It's built with React, Next.js, and Framer Motion, and demonstrates his ability to create engaging, production-grade user experiences. The 'AI' is powered by a structured knowledge base and keyword matching.",
-        "keywords": ["about this", "how does this work", "meta", "assistant", "bot"]
+    "skills": {
+      "response": "Aman's key skills include:\n\n*   **Frontend:** React, Next.js, TypeScript, Redux.js, Framer Motion\n*   **Backend:** Node.js, Express.js, MongoDB, SQL, Firebase\n*   **UI/Design:** Tailwind CSS, Chakra UI, Material UI, Figma\n*   **Tools & Testing:** Git, CI/CD, Jest, Vitest, Web Vitals",
+      "keywords": [
+        "skill",
+        "tech",
+        "stack",
+        "technologies",
+        "proficient",
+        "knows",
+        "experience with"
+      ]
+    },
+    "experience": {
+      "response": "Aman has over 2 years of professional experience. He was the **Frontend Lead** for the **Student Diwan LMS**, a large-scale SaaS platform. He also worked as a **Full-Stack Developer** at **Xpert, OptaCloud**, building a secure fintech and hiring platform.",
+      "keywords": [
+        "experience",
+        "history",
+        "worked",
+        "job",
+        "career",
+        "company"
+      ]
+    },
+    "education": {
+      "response": "Aman holds a Master of Computer Applications (MCA) from Jain University (GPA: 9.1) and a Bachelor of Science in IT (BSC-IT) from Mumbai University (GPA: 8.6).",
+      "keywords": [
+        "education",
+        "degree",
+        "college",
+        "university",
+        "gpa",
+        "mca",
+        "bsc"
+      ]
+    },
+    "projects_general": {
+      "response": "Aman has built over 15 projects. His featured work includes Student Diwan LMS, the Xpert Hiring Platform, and an intuitive form-builder called FormaFlow. Which project would you like to know more about?",
+      "keywords": [
+        "project",
+        "portfolio",
+        "work",
+        "build",
+        "create",
+        "showcase"
+      ],
+      "quickReplies": [
+        "Tell me about FormaFlow",
+        "What is Student Diwan?",
+        "Tell me about Xpert"
+      ]
+    },
+    "formaflow": {
+      "response": "FormaFlow is a complete, schema-driven form builder with a high-fidelity drag-and-drop interface. Check out the [Live Demo](https://formaflow.vercel.app/) or view the code on [GitHub](https://github.com/Amandubey211/form-builder).",
+      "keywords": ["formaflow", "form-builder", "form builder"]
+    },
+    "student_diwan": {
+      "response": "Student Diwan is a large-scale SaaS Learning Management System. As Frontend Lead, Aman architected its multi-role platform, improving performance by 30%. View the live application at [app.studentdiwan.com](https://app.studentdiwan.com/).",
+      "keywords": ["student diwan", "lms", "diwan"]
+    },
+    "xpert": {
+      "response": "Xpert is an expert hiring platform. Aman worked as a Full-Stack Developer on its multi-tier verification and payment systems, reducing fraud by 70%. View it live at [xpert.works](https://xpert.works/).",
+      "keywords": ["xpert", "optacloud", "hiring platform"]
+    },
+    "bizfind": {
+      "response": "BizFind is a business directory Aman built from scratch in under 4 hours for a coding challenge. It showcases his ability for rapid, high-quality execution. See the [Live Demo](https://biz-find.vercel.app/) or the [GitHub Repo](https://github.com/Amandubey211/BizFind).",
+      "keywords": ["bizfind", "biz find", "directory"]
+    },
+    "this_portfolio": {
+      "response": "This portfolio is the 4th version of Aman's personal site, built with Next.js, TypeScript, and Framer Motion. The goal was to create a memorable user experience with a focus on performance and fluid motion. You can view the full source code on [GitHub](https://github.com/Amandubey211/my-next-journey).",
+      "keywords": [
+        "this website",
+        "this portfolio",
+        "your site",
+        "about this site"
+      ]
     }
   }
 }

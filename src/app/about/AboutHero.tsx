@@ -90,18 +90,19 @@ function ShinyDownloadButton({
 
 export default function AboutHero() {
   return (
-    // --- THIS IS THE LINE THAT WAS CHANGED ---
-    <div className="grid md:grid-cols-[2fr_3fr] px-20 gap-10 items-center">
-      {/* photo + CTA (40% width on medium screens and up) */}
-      <div className="relative flex justify-center md:justify-end">
-        <Image
-          src={Aman}
-          alt="Aman Dubey"
-          width={560}
-          height={680}
-          priority
-          className="rounded-br-[150px] rounded-bl-[150px] rounded-2xl object-cover shadow-2xl opacity-80"
-        />
+    <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] px-4 sm:px-8 md:px-20 gap-10 items-center text-center md:text-left">
+      {/* photo + CTA */}
+      <div className="relative flex flex-col items-center md:items-end">
+        <div className="w-full max-w-sm md:max-w-full">
+          <Image
+            src={Aman}
+            alt="Aman Dubey"
+            width={560}
+            height={680}
+            priority
+            className="rounded-2xl md:rounded-br-[150px] md:rounded-bl-[150px] object-cover shadow-2xl opacity-80 w-full h-auto"
+          />
+        </div>
 
         {/* spinning disc */}
         <motion.div
@@ -109,7 +110,7 @@ export default function AboutHero() {
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 12, ease: "linear" }}
           style={{ width: radius * 2, height: radius * 2 }}
-          className="absolute -bottom-10 left-2 md:left-auto md:-right-12"
+          className="absolute -bottom-10 -right-4 md:-right-12"
         >
           <svg width={radius * 2} height={radius * 2}>
             <defs>
@@ -147,11 +148,12 @@ export default function AboutHero() {
         </motion.div>
       </div>
 
-      {/* headline / copy / button (60% width on medium screens and up) */}
+      {/* headline / copy / button */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: "easeOut" }}
+        className="flex flex-col items-center md:items-start"
       >
         <h1 className="font-bold leading-[0.98] text-[clamp(1.9rem,5.3vw,4.2rem)]">
           A <span className="text-lime-400">Full-Stack</span> Developer &

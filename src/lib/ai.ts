@@ -1,36 +1,54 @@
 // lib/ai.ts
 
-import knowledgeBase from './knowledge-base.json';
+import knowledgeBase from "./knowledge-base.json";
 
+// Updated interface to include optional quick replies
 export interface Message {
   id: number;
   text: string;
   sender: "user" | "bot";
+  quickReplies?: string[];
 }
 
-// Simple utility to simulate a delay
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+// --- TYPE DEFINITION FIX ---
+// We explicitly define the shape of a section in our knowledge base.
+// `quickReplies` is marked as optional with the `?` symbol.
+type KnowledgeBaseSection = {
+  response: string;
+  keywords: string[];
+  quickReplies?: string[];
+};
 
-export const getBotResponse = async (userText: string, chatHistory: Message[]): Promise<string> => {
+// We define the shape of the entire knowledge base's keywords object.
+type KnowledgeBaseKeywords = {
+  [key: string]: KnowledgeBaseSection;
+};
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Function now returns an object with text and optional quick replies
+export const getBotResponse = async (
+  userText: string
+): Promise<{ text: string; quickReplies?: string[] }> => {
   const normalizedText = userText.toLowerCase().trim();
-console.log(chatHistory,"chatHistory")
-  // Find a matching keyword section from our knowledge base
-  for (const key in knowledgeBase.keywords) {
-    const section = knowledgeBase.keywords[key as keyof typeof knowledgeBase.keywords];
-    if (section.keywords.some(keyword => normalizedText.includes(keyword))) {
+  const allKeywords = Object.keys(knowledgeBase.keywords).reverse();
+
+  for (const key of allKeywords) {
+    // We cast the keywords object to our new type here.
+    const section = (knowledgeBase.keywords as KnowledgeBaseKeywords)[key];
+
+    if (section.keywords.some((keyword) => normalizedText.includes(keyword))) {
       const responseText = section.response;
-      
-      // --- SIMULATE THINKING ---
-      // Calculate a realistic "typing" delay based on the response length.
-      // e.g., 20 words per second, with a max of 2 seconds.
-      const typingDelay = Math.min(responseText.length * 50, 2000);
+
+      const typingDelay = Math.min(responseText.length * 40, 2500);
       await sleep(typingDelay);
 
-      return responseText;
+      // Return the full response object. TypeScript is now happy because it knows
+      // `quickReplies` might be undefined, which is perfectly valid.
+      return { text: section.response, quickReplies: section.quickReplies };
     }
   }
 
-  // If no keyword matches, provide a helpful fallback response.
-  await sleep(800); // A standard delay for a fallback.
-  return knowledgeBase.fallback;
+  await sleep(800);
+  return { text: knowledgeBase.fallback };
 };

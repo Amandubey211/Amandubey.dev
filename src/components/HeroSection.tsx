@@ -68,7 +68,7 @@ export function HeroSection() {
             ease: "easeInOut",
           }}
         >
-          <Code className="w-20 h-20 text-lime-400/70" />
+          <Code className="w-20 h-20  text-lime-500" />
         </motion.div>
       </motion.div>
       <motion.div
@@ -87,7 +87,7 @@ export function HeroSection() {
             delay: 0.5,
           }}
         >
-          <Sprout className="w-16 h-16 text-teal-400/70" />
+          <Sprout className="w-16 h-16  text-lime-500" />
         </motion.div>
       </motion.div>
       <motion.p
