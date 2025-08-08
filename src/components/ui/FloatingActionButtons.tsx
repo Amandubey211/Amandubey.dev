@@ -131,7 +131,7 @@ export function FloatingActionButtons() {
               transition={{ type: "spring", stiffness: 150, damping: 20 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="flex h-12 w-12 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-lg border border-white/20 shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-400"
+              className="flex h-10 w-12 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-lg border border-white/20 shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-400"
               aria-label="Scroll to top"
             >
               <ArrowUp size={20} />
