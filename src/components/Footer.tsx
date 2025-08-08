@@ -6,7 +6,7 @@ import { motion, Variants } from "framer-motion";
 import {
   Github,
   Linkedin,
-  Instagram,
+  // Instagram,
   Mail,
   Twitter,
   Youtube,

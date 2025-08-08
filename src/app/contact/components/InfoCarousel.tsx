@@ -1,6 +1,4 @@
-// app/contact/components/InfoCarousel.tsx
 "use client";
-
 import {
   motion,
   PanInfo,
