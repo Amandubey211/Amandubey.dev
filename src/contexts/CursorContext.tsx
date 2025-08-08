@@ -1,27 +1,25 @@
-// contexts/CursorContext.tsx (Updated)
-"use client";
+// Example: contexts/CursorContext.tsx
 
-import { createContext, useState, useContext, ReactNode } from "react";
+import { createContext, useContext, useState } from "react";
 
-// CORRECTED: Added the 'text' variant
-type CursorVariant = "default" | "hover" | "text";
+// Add "link" to the list of possible variants
+type CursorVariant = "default" | "hover" | "text" | "link";
 
 interface CursorContextType {
   variant: CursorVariant;
   setVariant: (variant: CursorVariant) => void;
 }
 
-const CursorContext = createContext<CursorContextType | null>(null);
+const CursorContext = createContext<CursorContextType | undefined>(undefined);
 
-export function CursorProvider({ children }: { children: ReactNode }) {
+export const CursorProvider = ({ children }: { children: React.ReactNode }) => {
   const [variant, setVariant] = useState<CursorVariant>("default");
-
   return (
     <CursorContext.Provider value={{ variant, setVariant }}>
       {children}
     </CursorContext.Provider>
   );
-}
+};
 
 export const useCursorContext = () => {
   const context = useContext(CursorContext);
