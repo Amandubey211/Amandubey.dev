@@ -1,3 +1,4 @@
+// app/contact/components/InfoCarousel.tsx
 "use client";
 
 import {
@@ -9,7 +10,7 @@ import {
 } from "framer-motion";
 import React from "react";
 import Image from "next/image";
-import amandubey from "@/assets/Contact/amandubey.png"; // Make sure this path is correct
+import amandubey from "@/assets/Contact/amandubey.png";
 import {
   Mail,
   Github,
@@ -27,7 +28,6 @@ export interface CarouselItem {
   icon: React.ReactNode;
 }
 
-// --- Data for the carousel slides ---
 const SLIDE_DATA: CarouselItem[] = [
   {
     title: "My Inbox Is Open",
@@ -66,16 +66,13 @@ const SLIDE_DATA: CarouselItem[] = [
   },
 ];
 
-// --- Animation Constants ---
-const CARD_WIDTH = 400;
+const CARD_WIDTH = 300;
 const CARD_HEIGHT = 240;
 const GAP = 24;
 const DRAG_THRESHOLD = 50;
-// FIX: Added 'as const' to ensure TypeScript infers a literal type for "spring"
 const SPRING_OPTIONS = { type: "spring", stiffness: 400, damping: 40 } as const;
 const TRACK_OFFSET = CARD_WIDTH + GAP;
 
-// --- Child Component for each Card ---
 function CarouselCard({
   item,
   index,
@@ -135,12 +132,13 @@ export function InfoCarousel() {
     }
   };
 
+  // UPDATED: Main container is now responsive
   return (
     <div
-      className="relative rounded-2xl border border-gray-800 flex flex-col"
-      style={{ width: CARD_WIDTH + 48, height: CARD_HEIGHT + 180 }}
+      className="relative rounded-2xl border border-gray-800 flex flex-col w-full max-w-[348px] mx-auto lg:mx-0"
+      style={{ minHeight: CARD_HEIGHT + 180 }}
     >
-      {/* --- Header Section --- */}
+      {/* --- Header Section (No changes needed here) --- */}
       <div className="flex justify-between items-center px-6 pt-6 pb-4">
         <div className="flex items-center gap-4">
           <Image
@@ -151,7 +149,7 @@ export function InfoCarousel() {
             className="object-cover rounded-full border p-1 border-white"
             priority
           />
-          <div className="flex items-center gap-2 text-sm  font-medium px-3 py-1 bg-[#21291f] rounded-full border border-lime-400/20">
+          <div className="flex items-center gap-2 text-sm font-medium px-3 py-1 bg-[#21291f] rounded-full border border-lime-400/20">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-lime-500"></span>
@@ -181,8 +179,8 @@ export function InfoCarousel() {
         </div>
       </div>
 
-      {/* --- Carousel Body --- */}
-      <div className="relative overflow-hidden w-full h-full flex items-center px-6">
+      {/* --- Carousel Body - UPDATED: padding removed to maximize space --- */}
+      <div className="relative overflow-hidden w-full h-full flex items-center">
         <motion.div
           drag="x"
           dragConstraints={{
@@ -197,7 +195,7 @@ export function InfoCarousel() {
               currentIndex * TRACK_OFFSET + CARD_WIDTH / 2
             }px 50%`,
           }}
-          className="flex h-full cursor-grab active:cursor-grabbing"
+          className="flex h-full cursor-grab active:cursor-grabbing pl-6" // Added pl-6 here to align first card
           onDragEnd={handleDragEnd}
           animate={{ x: -(currentIndex * TRACK_OFFSET) }}
           transition={SPRING_OPTIONS}
@@ -208,7 +206,7 @@ export function InfoCarousel() {
         </motion.div>
       </div>
 
-      {/* --- Navigation --- */}
+      {/* --- Navigation (No changes needed here) --- */}
       <div className="flex w-full justify-center gap-3 py-6">
         {SLIDE_DATA.map((_, index) => (
           <button

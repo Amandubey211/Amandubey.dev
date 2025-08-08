@@ -14,7 +14,7 @@ const itemVariants: Variants = {
 export default function ContactPage() {
   return (
     <motion.main
-      className="max-w-6xl mx-auto px-6 py-20 lg:py-24"
+      className="max-w-6xl mx-auto px-6 py-20 lg:py-24 "
       initial="hidden"
       animate="visible"
       variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
@@ -29,18 +29,18 @@ export default function ContactPage() {
           CONNECT WITH ME
         </motion.div>
         <motion.h1
-          className="text-5xl md:text-6xl font-bold text-white tracking-tighter leading-tight"
+          className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tighter leading-tight"
           variants={itemVariants}
           initial="hidden"
-          whileInView="visible" // Use whileInView instead of animate
-          viewport={{ once: true, amount: 0.8 }} // once: true animates only the first time
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.8 }}
         >
           Let&apos;s start a project together
         </motion.h1>
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start px-10">
+      {/* Main Content Grid - UPDATED for responsiveness */}
+      <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-start">
         {/* Contact Form Component */}
         <motion.div
           variants={itemVariants}
