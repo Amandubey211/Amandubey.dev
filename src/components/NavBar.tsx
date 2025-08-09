@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, X, Github, Linkedin } from "lucide-react";
+import { Menu, X, Linkedin } from "lucide-react"; 
 import Link from "next/link";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
@@ -28,15 +28,15 @@ export function NavBar() {
   const [hoveredLink, setHoveredLink] = useState("");
 
   // Set your availability based on your resume/status
-  const [isAvailableForWork] = useState(true); 
+  const [isAvailableForWork] = useState(true);
   const prefersReducedMotion = usePrefersReducedMotion();
- const { startLenis, stopLenis } = useLenisContext();
+  const { startLenis, stopLenis } = useLenisContext();
   useEffect(() => {
     NProgress.start();
     const t = setTimeout(() => NProgress.done(), 200);
     return () => clearTimeout(t);
   }, [pathname]);
-useEffect(() => {
+  useEffect(() => {
     if (menuOpen) {
       stopLenis(); // Use the context function to stop Lenis
     } else {
@@ -97,7 +97,9 @@ useEffect(() => {
   return (
     <>
       <motion.nav
-        className={clsx(navContainerClasses, { "shine-effect": scrolled && !prefersReducedMotion })}
+        className={clsx(navContainerClasses, {
+          "shine-effect": scrolled && !prefersReducedMotion,
+        })}
         style={scrolled ? { perspective: "1000px" } : {}}
         initial={prefersReducedMotion ? false : "hidden"}
         animate="visible"
@@ -106,7 +108,11 @@ useEffect(() => {
       >
         <motion.div
           className="flex w-full items-center justify-between"
-          style={scrolled && !prefersReducedMotion ? { transform: "rotateX(0deg)" } : {}}
+          style={
+            scrolled && !prefersReducedMotion
+              ? { transform: "rotateX(0deg)" }
+              : {}
+          }
         >
           <Link
             href="/"
@@ -120,7 +126,7 @@ useEffect(() => {
             {links.map(({ label, path }) => {
               const active =
                 path === "/" ? pathname === "/" : pathname.startsWith(path);
-              
+
               if (label === "Contact" && isAvailableForWork) {
                 return (
                   <li key="contact-available" className="relative">
@@ -150,7 +156,9 @@ useEffect(() => {
                 <li
                   key={label}
                   className="relative"
-                  onMouseEnter={() => !prefersReducedMotion && setHoveredLink(label)}
+                  onMouseEnter={() =>
+                    !prefersReducedMotion && setHoveredLink(label)
+                  }
                   onMouseLeave={() => setHoveredLink("")}
                 >
                   <Link
@@ -163,7 +171,11 @@ useEffect(() => {
                     <motion.span
                       className="flex"
                       initial="initial"
-                      animate={hoveredLink === label && !prefersReducedMotion ? "hover" : "initial"}
+                      animate={
+                        hoveredLink === label && !prefersReducedMotion
+                          ? "hover"
+                          : "initial"
+                      }
                     >
                       {label.split("").map((char, i) => (
                         <motion.span
@@ -171,7 +183,10 @@ useEffect(() => {
                           className="inline-block"
                           variants={letterVariants}
                           transition={{
-                            delay: i * 0.03, type: "spring", stiffness: 300, damping: 15
+                            delay: i * 0.03,
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 15,
                           }}
                         >
                           {char}
@@ -184,7 +199,11 @@ useEffect(() => {
                       className="absolute bottom-[-4px] left-0 h-0.5 w-full bg-lime-400"
                       layoutId="underline"
                       initial={false}
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 30,
+                      }}
                     />
                   )}
                 </li>
@@ -204,7 +223,7 @@ useEffect(() => {
             >
               <Linkedin className="size-5" />
             </motion.a>
-            <motion.a
+            {/* <motion.a
               href="https://github.com/Amandubey211"
               target="_blank"
               rel="noopener noreferrer"
@@ -214,13 +233,17 @@ useEffect(() => {
               whileTap={{ scale: 0.9 }}
             >
               <Github className="size-5" />
-            </motion.a>
+            </motion.a> */}
             <button
               aria-label="Toggle mobile menu"
               className="md:hidden text-white hover:text-white/90 transition z-10"
               onClick={() => setMenuOpen((p) => !p)}
             >
-              {menuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
+              {menuOpen ? (
+                <X className="size-6" />
+              ) : (
+                <Menu className="size-6" />
+              )}
             </button>
           </div>
         </motion.div>

@@ -5,7 +5,6 @@ import { DesignProcess } from "@/components/DesignProcess";
 import { Education } from "@/components/Education";
 import { SkillsShowcase } from "@/components/SkillsShowcase";
 
-// SEO Metadata for the page
 export const metadata = {
   title: "About | Aman Dubey",
   description:
@@ -14,13 +13,10 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    // Use a consistent dark background for the entire page
     <main className=" text-white">
       <div className="relative max-w-6xl mx-auto px-6 md:px-6 py-12 ">
         <AboutHero />
-
         <SkillsShowcase />
-
         <WorkHistory />
         <DesignProcess />
         <Education />

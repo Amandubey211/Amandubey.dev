@@ -58,7 +58,7 @@ export function CallToActionSection() {
           {/* headline */}
           <h2
             className="mb-10 font-semibold leading-tight tracking-tight
-                       text-6xl md:text-5xl
+                       text-4xl md:text-5xl
                        text-white"
           >
             Let&apos;s create your
@@ -75,7 +75,7 @@ export function CallToActionSection() {
             <ShinyButton
               initialText="Contact Me"
               hoverText="Contact Me"
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 border border-lime-300"
             />
           </Link>
         </div>

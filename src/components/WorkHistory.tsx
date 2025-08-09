@@ -1,14 +1,17 @@
+// components/WorkHistory.tsx (Final Version with Accessibility Fix)
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import {
   Briefcase,
   Code,
   Sparkles as SparklesIcon,
   GraduationCap,
+  ChevronDown,
 } from "lucide-react";
-import { JSX } from "react";
 
+// Data remains the same
 const workHistory = [
   {
     role: "Frontend Lead",
@@ -47,113 +50,38 @@ const workHistory = [
       "Automated testing and deployment workflows by establishing robust CI/CD pipelines with GitHub Actions, significantly reducing manual deployment errors.",
     ],
   },
-  {
-    role: "Web Development Consultant",
-    company: "@Self-Employed",
-    period: "3+ Years",
-    Icon: SparklesIcon,
-    details: [
-      "Delivered 15+ custom web applications for diverse clients, utilizing modern frameworks like React and Next.js to meet specific business requirements.",
-      "Designed and built reusable component libraries with Material UI and Tailwind CSS, accelerating development time by an average of 30% across projects.",
-      "Automated testing and deployment workflows by establishing robust CI/CD pipelines with GitHub Actions, significantly reducing manual deployment errors.",
-    ],
-  },
 ];
 
-// Variants for the overall container of timeline items
-const timelineContainerVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.15, // Staggers the appearance of each timeline item row
-    },
-  },
-};
-
-// Variants for the content cards (period and details)
-const cardSlideVariants: (fromLeft: boolean) => Variants = (fromLeft) => ({
-  hidden: { opacity: 0, x: fromLeft ? -80 : 80, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    scale: 1,
-    transition: { type: "spring", stiffness: 100, damping: 15, mass: 0.8 },
-  },
-});
-
-// Variants for the central icon
-const iconPopVariants: Variants = {
-  hidden: { opacity: 0, scale: 0 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { type: "spring", stiffness: 250, damping: 20, delay: 0.2 },
-  },
-};
-
-// Variants for individual detail list items
-const detailItemVariants: Variants = {
-  hidden: { opacity: 0, y: 10 },
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 120, damping: 15 },
+    transition: { type: "spring", stiffness: 100, damping: 12 },
   },
 };
 
-// Container variants for the list of detail items, to enable staggering their appearance
-const detailsListVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.05,
-    },
-  },
+const detailsVariants: Variants = {
+  collapsed: { opacity: 0, height: 0 },
+  open: { opacity: 1, height: "auto" },
 };
-
-// Component for rendering job role, company, and period
-const JobInfoCardContent = ({
-  role,
-  company,
-  period,
-}: {
-  role: string;
-  company: string;
-  period: string;
-}) => (
-  <>
-    <h4 className="text-lg sm:text-xl font-semibold text-white">{role}</h4>
-    <p className="text-sm sm:text-base text-gray-400">{company}</p>
-    <span className="text-xs sm:text-sm text-gray-500 font-mono mt-1 block">
-      {period}
-    </span>
-  </>
-);
-
-// Component for rendering job details list with staggered animations
-const JobDetailsCardContent = ({ details }: { details: string[] }) => (
-  <motion.ul
-    variants={detailsListVariants}
-    className="list-disc pl-5 space-y-1 text-sm text-gray-300"
-  >
-    {details.map((detail, i) => (
-      <motion.li key={i} variants={detailItemVariants}>
-        {detail}
-      </motion.li>
-    ))}
-  </motion.ul>
-);
 
 export function WorkHistory() {
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
+
+  const handleToggle = (index: number) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
+
   return (
-    <section className="py-28 px-4 sm:px-6 lg:px-8  text-white">
+    <section className="py-8 px-4 sm:px-6 lg:px-8 text-white">
       {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.6 }}
-        className="max-w-xl mb-12"
+        className="max-w-xl mb-16"
       >
         <h2 className="flex items-center gap-2 text-lime-400 font-bold tracking-widest text-sm mb-2">
           <SparklesIcon size={18} />
@@ -168,85 +96,91 @@ export function WorkHistory() {
         </p>
       </motion.div>
 
-      {/* Main Timeline Container */}
-      <motion.div
-        variants={timelineContainerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="relative max-w-5xl mx-auto"
-      >
-        {/* Vertical Timeline Line (for large screens) */}
-        <motion.div
-          initial={{ height: 0 }}
-          whileInView={{ height: "calc(100% - 2.5rem)" }} // Adjust to start slightly below first icon
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="absolute left-1/2 -translate-x-1/2 w-0.5 bg-gray-700 top-6 hidden lg:block"
-        ></motion.div>
+      {/* Accordion Timeline Layout */}
+      <div className="relative max-w-3xl mx-auto">
+        <div className="absolute left-4 top-4 h-full w-0.5 bg-gray-700" />
 
         {workHistory.map((job, index) => {
-          const isEven = index % 2 === 0;
-
-          // Determine content for the first and second content cards
-          // On large screens, firstCardContent is on the visual left (if not reversed) or visual right (if reversed)
-          // On large screens, secondCardContent is on the visual right (if not reversed) or visual left (if reversed)
-          let firstCardContent: JSX.Element;
-          let secondCardContent: JSX.Element;
-
-          if (isEven) {
-            // For even index: Info on left, Details on right
-            firstCardContent = <JobInfoCardContent {...job} />;
-            secondCardContent = <JobDetailsCardContent details={job.details} />;
-          } else {
-            // For odd index: Details on left, Info on right
-            firstCardContent = <JobDetailsCardContent details={job.details} />;
-            secondCardContent = <JobInfoCardContent {...job} />;
-          }
+          const isExpanded = expandedIndex === index;
+          const contentId = `work-history-content-${index}`;
 
           return (
             <motion.div
               key={`${job.company}-${index}`}
-              className={`flex flex-col items-center w-full my-8 lg:gap-x-8 lg:flex-row
-                ${isEven ? "" : "lg:flex-row-reverse"}
-              `}
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="relative mb-8"
             >
-              {/* First Content Card (visually left on even, visually right on odd) */}
-              <motion.div
-                className={`w-full lg:w-1/2 p-4 rounded-lg bg-white/5 border border-white/10 hover:border-lime-400 transition-all duration-300 shadow-md
-                  ${isEven ? "lg:text-right" : "lg:text-left"}
-                `}
-                // Animate from left if it's visually on the left, from right if visually on the right
-                variants={cardSlideVariants(isEven)}
-              >
-                {firstCardContent}
-              </motion.div>
+              <div className="flex items-start gap-6 sm:gap-8">
+                {/* Icon */}
+                <div className="relative z-10 flex-shrink-0 mt-1">
+                  <div className="bg-black rounded-full p-2 border-2 border-lime-400">
+                    <job.Icon className="text-lime-400 size-6 sm:size-7" />
+                  </div>
+                </div>
 
-              {/* Central Icon */}
-              <motion.div
-                variants={iconPopVariants}
-                className="z-10 bg-black rounded-full p-3 border-2 border-lime-400 flex-shrink-0
-                           relative mt-4 mb-4 lg:my-0"
-              >
-                <job.Icon className="text-lime-400 size-6 sm:size-7" />
-                {/* Small screen vertical line segment connecting items */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 bg-gray-700 h-full -z-10 block lg:hidden"></div>
-              </motion.div>
+                {/* Clickable Header and Collapsible Content */}
+                <div className="flex-grow">
+                  <button
+                    onClick={() => handleToggle(index)}
+                    className="w-full flex justify-between items-center text-left"
+                    aria-expanded={isExpanded}
+                    aria-controls={contentId}
+                  >
+                    <div>
+                      <p className="text-xs sm:text-sm text-gray-500 font-mono mb-1">
+                        {job.period}
+                      </p>
+                      <h4 className="text-lg sm:text-xl font-semibold text-white">
+                        {job.role}
+                      </h4>
+                      <p className="text-sm sm:text-base text-gray-400">
+                        {job.company}
+                      </p>
+                    </div>
+                    <motion.div
+                      animate={{ rotate: isExpanded ? 180 : 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="ml-4 flex-shrink-0"
+                    >
+                      <ChevronDown className="text-gray-400 size-5" />
+                    </motion.div>
+                  </button>
 
-              {/* Second Content Card (visually right on even, visually left on odd) */}
-              <motion.div
-                className={`w-full lg:w-1/2 p-4 rounded-lg bg-white/5 border border-white/10 hover:border-lime-400 transition-all duration-300 shadow-md
-                  ${!isEven ? "lg:text-right" : "lg:text-left"}
-                `}
-                // Animate from right if it's visually on the right, from left if visually on the left
-                variants={cardSlideVariants(!isEven)}
-              >
-                {secondCardContent}
-              </motion.div>
+                  <AnimatePresence initial={false}>
+                    {isExpanded && (
+                      <motion.section
+                        // --- ACCESSIBILITY ID ADDED HERE ---
+                        id={contentId}
+                        key="content"
+                        initial="collapsed"
+                        animate="open"
+                        exit="collapsed"
+                        variants={detailsVariants}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <ul className="list-none space-y-2 text-gray-300 mt-4 pl-1">
+                          {job.details.map((detail, i) => (
+                            <li key={i} className="flex items-start gap-3">
+                              <span className="text-lime-400 mt-1.5">
+                                &#8227;
+                              </span>
+                              <span>{detail}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </motion.section>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
             </motion.div>
           );
         })}
-      </motion.div>
+      </div>
     </section>
   );
 }

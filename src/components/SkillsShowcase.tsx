@@ -38,7 +38,7 @@ import {
   FolderOpen,
   Shield,
   GanttChart,
-  Sparkles,
+  SparklesIcon,
 } from "lucide-react";
 
 // Define the structure for a skill item
@@ -503,16 +503,13 @@ export function SkillsShowcase() {
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
     >
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="flex items-center gap-2 text-lime-400 tracking-wider mb-8"
-      >
-        <Sparkles size={18} className="text-lime-400" />
-        My Expertise & Tech Stack
-      </motion.h2>
+      <h2 className="flex items-center gap-2 text-lime-400 font-bold tracking-widest text-sm mb-2">
+        <SparklesIcon size={18} />
+        My Expertise
+      </h2>
+      <h3 className="text-4xl sm:text-5xl font-bold leading-tight">
+        Tech Stack
+      </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {categories.map((category) => (
           <motion.div key={category.title} variants={categoryVariants}>

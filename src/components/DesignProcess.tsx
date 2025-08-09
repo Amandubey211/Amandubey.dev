@@ -73,7 +73,7 @@ const itemVariants: Variants = {
 
 export function DesignProcess() {
   return (
-    <section className="py-28 px-4 sm:px-8 lg:px-16">
+    <section className="py-4 px-4 sm:px-4 lg:px-10">
       {" "}
       {/* Added horizontal padding to the section */}
       <motion.div
@@ -81,7 +81,7 @@ export function DesignProcess() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.6 }}
-        className="max-w-3xl mx-auto mb-12 text-center lg:text-left" // Increased max-width and centered for better presentation
+        className="max-w-3xl mx-auto mb-12 " // Increased max-width and centered for better presentation
       >
         <h2 className="flex items-center gap-2 text-lime-400 font-bold tracking-widest text-sm mb-2 justify-center lg:justify-start">
           <Sparkles size={18} />
