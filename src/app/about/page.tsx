@@ -18,8 +18,8 @@ export default function AboutPage() {
         <AboutHero />
         <SkillsShowcase />
         <WorkHistory />
-        <DesignProcess />
         <Education />
+        <DesignProcess />
       </div>
     </main>
   );
