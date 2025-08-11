@@ -1,7 +1,5 @@
 // lib/projectdata.ts
 
-// --- KEY CHANGE: Removed all local image imports ---
-// We now only import the `StaticImageData` type for our type definition.
 import { StaticImageData } from "next/image";
 import FormaFlow from "@/assets/Projects/FormaFlow.png";
 import PortfolioOR from "@/assets/Projects/PortfolioOR.png";
@@ -9,7 +7,6 @@ import StudentDiwanLMS from "@/assets/Projects/StudentDiwanLMS.png";
 import Xpert from "@/assets/Projects/Xpert.png";
 import BizFindCover from "@/assets/Projects/BixFind.png";
 import Portfolio from "@/assets/Projects/Portfolio.png";
-// The final, richest Project type
 export type Project = {
   slug: string;
   title: string;

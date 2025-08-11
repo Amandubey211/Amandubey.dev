@@ -21,9 +21,9 @@ export function ContactForm() {
   const [formState, setFormState] = useState<FormState>("idle");
   const [errors, setErrors] = useState<FormErrors>({});
   const [formValues, setFormValues] = useState<FormValues>({
-    name: "Aman",
-    email: "amanreactdeveloper@gmail.com",
-    message: "Great Website Aman Dubey cheers",
+    name: "",
+    email: "",
+    message: "",
   });
 
   // Auto-dismiss functionality remains
