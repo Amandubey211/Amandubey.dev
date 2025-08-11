@@ -65,7 +65,7 @@ export async function POST(request: Request) {
     const smtpEmail = process.env.SMTP_EMAIL;
     const smtpPassword = process.env.SMTP_PASSWORD;
     const recipientEmail =
-      process.env.RECIPIENT_EMAIL || "amandubey8833@gmail.com";
+      process.env.RECIPIENT_EMAIL || "amandubey.dev@gmail.com";
 
     if (!smtpEmail || !smtpPassword) {
       console.error(
@@ -82,15 +82,23 @@ export async function POST(request: Request) {
 
     // 5. Create and verify Nodemailer transporter
     const transporter = nodemailer.createTransport({
-      host: "smtp-relay.brevo.com",
-      port: 587,
-      secure: false, // TLS is used
+      // host: "smtp-relay.brevo.com",
+      // port: 587,
+      // secure: false, // TLS is used
+      // auth: {
+      //   user: smtpEmail,
+      //   pass: smtpPassword,
+      // },
+      // tls: {
+      //   rejectUnauthorized: true,
+      // },
+      service: "gmail", // Use the built-in Gmail service
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // Use SSL
       auth: {
-        user: smtpEmail,
-        pass: smtpPassword,
-      },
-      tls: {
-        rejectUnauthorized: true,
+        user: smtpEmail, // Your full Gmail address from .env
+        pass: smtpPassword, // The App Password from .env
       },
     });
 
@@ -109,52 +117,137 @@ export async function POST(request: Request) {
       from: `"Portfolio Contact Form" <${smtpEmail}>`,
       to: recipientEmail,
       replyTo: sanitizedEmail,
-      subject: `🚀 New Contact Form Submission from ${sanitizedName}`,
+      subject: `🚀 New Message from ${sanitizedName}`,
       html: `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="utf-8">
-          <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; margin: 0; padding: 20px; background-color: #f4f4f9; color: #333; }
-            .container { max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.07); overflow: hidden; border: 1px solid #e2e8f0; }
-            .header { background: linear-gradient(135deg, #84cc16, #10b981); padding: 24px; text-align: center; }
-            .header h1 { margin: 0; color: white; font-size: 28px; font-weight: 600; }
-            .content { padding: 30px; }
-            .content p { font-size: 16px; line-height: 1.7; }
-            .info-block { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
-            .info-block strong { display: block; margin-bottom: 8px; color: #4a5568; font-size: 14px; }
-            .message-block { white-space: pre-wrap; word-wrap: break-word; font-family: 'Courier New', Courier, monospace; background-color: #1e293b; color: #e2e8f0; padding: 20px; border-radius: 8px; }
-            .footer { padding: 20px; text-align: center; font-size: 12px; color: #a0aec0; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1>New Message Received</h1>
-            </div>
-            <div class="content">
-              <p>You've received a new message through your portfolio contact form.</p>
-              <div class="info-block">
-                <strong>From:</strong>
-                <p>${sanitizedName}</p>
-              </div>
-              <div class="info-block">
-                <strong>Email:</strong>
-                <p><a href="mailto:${sanitizedEmail}">${sanitizedEmail}</a></p>
-              </div>
-              <div class="info-block">
-                <strong>Message:</strong>
-                <pre class="message-block">${sanitizedMessage}</pre>
-              </div>
-            </div>
-            <div class="footer">
-              <p>This email was sent from your portfolio contact form.</p>
-            </div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        /* Base styles */
+        body {
+          margin: 0;
+          padding: 0;
+          background-color: #f2f4f6;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          -webkit-font-smoothing: antialiased;
+        }
+        .email-container {
+          max-width: 600px;
+          margin: 40px auto;
+          background-color: #ffffff;
+          border: 1px solid #e0e0e0;
+          border-radius: 12px;
+          overflow: hidden;
+        }
+        .email-header {
+          background: linear-gradient(135deg, #1f2937, #111827);
+          color: #ffffff;
+          padding: 40px;
+          text-align: center;
+        }
+        .email-header h1 {
+          margin: 0;
+          font-size: 28px;
+          font-weight: 600;
+          letter-spacing: -0.5px;
+        }
+        .email-header p {
+          margin: 10px 0 0;
+          font-size: 16px;
+          color: #a0aec0;
+        }
+        .email-content {
+          padding: 30px 40px;
+        }
+        .content-block {
+          margin-bottom: 25px;
+        }
+        .content-block strong {
+          display: block;
+          color: #4a5568;
+          font-size: 14px;
+          font-weight: 600;
+          margin-bottom: 8px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+        .content-block p, .content-block pre {
+          margin: 0;
+          font-size: 16px;
+          line-height: 1.6;
+          color: #333;
+        }
+        .message-block {
+          background-color: #f8fafc;
+          border: 1px solid #e2e8f0;
+          border-radius: 8px;
+          padding: 20px;
+          white-space: pre-wrap;
+          word-wrap: break-word;
+          font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+          color: #1e293b;
+        }
+        .reply-button-container {
+          text-align: center;
+          margin-top: 30px;
+        }
+        .reply-button {
+          display: inline-block;
+          background: linear-gradient(135deg, #a3e635, #84cc16);
+          color: #1f2937;
+          font-size: 16px;
+          font-weight: 600;
+          text-decoration: none;
+          padding: 14px 28px;
+          border-radius: 8px;
+          transition: transform 0.2s;
+        }
+        .email-footer {
+          text-align: center;
+          padding: 25px;
+          font-size: 12px;
+          color: #a0aec0;
+          background-color: #f8fafc;
+          border-top: 1px solid #e0e0e0;
+        }
+        a {
+            color: #84cc16;
+            text-decoration: none;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="email-container">
+        <div class="email-header">
+          <h1>New Portfolio Message</h1>
+          <p>A new submission has arrived from your contact form.</p>
+        </div>
+        <div class="email-content">
+          <div class="content-block">
+            <strong>From</strong>
+            <p>${sanitizedName}</p>
           </div>
-        </body>
-        </html>
-      `,
+          <div class="content-block">
+            <strong>Sender's Email</strong>
+            <p><a href="mailto:${sanitizedEmail}">${sanitizedEmail}</a></p>
+          </div>
+          <div class="content-block">
+            <strong>Message</strong>
+            <pre class="message-block">${sanitizedMessage}</pre>
+          </div>
+          <div class="reply-button-container">
+            <a href="mailto:${sanitizedEmail}" class="reply-button">Reply to ${sanitizedName}</a>
+          </div>
+        </div>
+        <div class="email-footer">
+          <p>Sent via amandubey.vercel.app</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `,
     };
 
     // 7. Send the email
