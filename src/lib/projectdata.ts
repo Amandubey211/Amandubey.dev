@@ -7,6 +7,7 @@ import StudentDiwanLMS from "@/assets/Projects/StudentDiwanLMS.png";
 import Xpert from "@/assets/Projects/Xpert.png";
 import BizFindCover from "@/assets/Projects/BixFind.png";
 import Portfolio from "@/assets/Projects/Portfolio.png";
+import AVAAI from "@/assets/Projects/AVA.AI.png";
 export type Project = {
   slug: string;
   title: string;
@@ -34,7 +35,7 @@ export const allProjects: Project[] = [
   {
     slug: "ava-ai-platform",
     title: "AVA.AI - AI Avatar Platform",
-    coverImage: "/images/YourProjectCoverImage.png", // IMPORTANT: Add a cover image to /public/images
+    coverImage: AVAAI, // IMPORTANT: Add a cover image to /public/images
     year: 2025,
     role: "Lead Architect & Full-Stack Developer",
     client: "Personal Project",
