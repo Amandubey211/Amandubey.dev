@@ -30,6 +30,59 @@ export type Project = {
 
 // --- THIS ARRAY IS NOW IN YOUR PRECISE, SPECIFIED ORDER ---
 export const allProjects: Project[] = [
+  // 1. AVA.AI - AI Avatar Platform
+  {
+    slug: "ava-ai-platform",
+    title: "AVA.AI - AI Avatar Platform",
+    coverImage: "/images/YourProjectCoverImage.png", // IMPORTANT: Add a cover image to /public/images
+    year: 2025,
+    role: "Lead Architect & Full-Stack Developer",
+    client: "Personal Project",
+    categories: ["Development", "Design", "Other"],
+    description:
+      "A cutting-edge platform for real-time, conversational 3D AI assistants, powered by Google Gemini and Next.js.",
+    overview:
+      "This project is an ambitious endeavor to build a scalable and immersive platform for interacting with specialized 3D AI assistants. Inspired by industry leaders like Soul Machines, it moves beyond simple chatbots to create emotionally resonant digital humans. The user experience is paramount, featuring a stunning 3D hero section, a dynamic gallery of configurable avatars, and a real-time, streaming chat interface with integrated Text-to-Speech and lip-syncing.",
+    techStack: [
+      "Next.js",
+      "TypeScript",
+      "React Three Fiber",
+      "Google Gemini",
+      "Vercel AI SDK",
+      "Zustand",
+      "Tailwind CSS",
+      "Framer Motion",
+      "ElevenLabs API",
+    ],
+    features: [
+      {
+        title: "Real-time Conversational AI",
+        description:
+          "Live, streaming chat powered by the Google Gemini API and orchestrated by the modern Vercel AI SDK `useChat` hook for a seamless, interactive experience.",
+      },
+      {
+        title: "Immersive 3D/WebGL Experience",
+        description:
+          "Built a high-performance 3D environment from the ground up using React Three Fiber, featuring a dramatic hero section with post-processing effects and scroll-based parallax animations.",
+      },
+      {
+        title: "Live Text-to-Speech & Lip-Sync",
+        description:
+          "Engineered a full audio pipeline with a secure backend route to the ElevenLabs API, a global state-managed audio queue, and real-time 3D model lip-syncing for believable character interaction.",
+      },
+      {
+        title: "Dynamic, Configurable Platform",
+        description:
+          "Architected a scalable system where avatars, personalities (system prompts), and UI themes are all driven by a central configuration file, allowing for easy expansion.",
+      },
+    ],
+    liveUrl: "https://ava-ai-five.vercel.app/",
+    githubUrl: "https://github.com/Amandubey211/AVA.AI",
+    isFeatured: true,
+    bgColor: "bg-purple-50",
+    projectType: "Personal",
+    duration: "3 Days (Intensive Sprint) ",
+  },
   // 1. BizFind
   {
     slug: "biz-find-directory",
