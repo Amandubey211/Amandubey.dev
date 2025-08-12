@@ -7,7 +7,7 @@ import StudentDiwanLMS from "@/assets/Projects/StudentDiwanLMS.png";
 import Xpert from "@/assets/Projects/Xpert.png";
 import BizFindCover from "@/assets/Projects/BixFind.png";
 import Portfolio from "@/assets/Projects/Portfolio.png";
-import AVAAI from "@/assets/Projects/AVA.AI.png";
+import AVAAI from "@/assets/Projects/AVAAI.png";
 export type Project = {
   slug: string;
   title: string;
